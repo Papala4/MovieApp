@@ -1,6 +1,8 @@
 package com.example.build_logic
 
-import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.dsl.CommonExtension
+import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
@@ -13,8 +15,9 @@ class AndroidComposeConventionPlugin : Plugin<Project> {
 
         pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
 
-        val androidExtension =
-            extensions.getByType<BaseAppModuleExtension>()
+        val androidExtension: CommonExtension<*, *, *, *, *, *> =
+            extensions.findByType(LibraryExtension::class.java)
+                ?: extensions.getByType(ApplicationExtension::class.java)
 
         androidExtension.buildFeatures {
             compose = true
@@ -22,7 +25,6 @@ class AndroidComposeConventionPlugin : Plugin<Project> {
 
         val libs =
             extensions.getByType<VersionCatalogsExtension>().named("libs")
-
 
         dependencies {
             val bom = libs.findLibrary("compose-bom").get()

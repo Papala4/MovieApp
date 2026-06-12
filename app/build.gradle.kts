@@ -1,6 +1,5 @@
 plugins {
     id("movieapp.android.application")
-    id("movieapp.android.compose")
     id("movieapp.android.koin")
 }
 
