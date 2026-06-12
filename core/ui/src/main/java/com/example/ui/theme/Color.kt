@@ -20,7 +20,6 @@ data class MovieAppColors(
     val overlay: Color
 )
 
-// Primitives from your palette
 val YellowPrimary   = Color(0xFFFFC44A)
 val Neutral01Black  = Color(0xFF080808)
 val Neutral02       = Color(0xFF1C1C1C)
