@@ -1,4 +1,4 @@
-package com.example.build_logic
+package com.space.build_logic
 
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.JavaVersion

@@ -1,4 +1,4 @@
-package com.example.build_logic
+package com.space.build_logic
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension

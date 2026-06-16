@@ -1,12 +1,15 @@
-package com.example.build_logic
+package com.space.build_logic
 
 import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getByType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
-
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
 
@@ -14,6 +17,9 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
 
         pluginManager.apply("com.android.application")
         pluginManager.apply("org.jetbrains.kotlin.android")
+        pluginManager.apply("org.jetbrains.kotlin.plugin.serialization")
+
+        val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
         extensions.configure<ApplicationExtension> {
             compileSdk = 34
@@ -44,7 +50,6 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 }
             }
 
-
             compileOptions {
                 sourceCompatibility = JavaVersion.VERSION_17
                 targetCompatibility = JavaVersion.VERSION_17
@@ -53,8 +58,14 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
 
         extensions.configure<KotlinAndroidProjectExtension> {
             compilerOptions {
-                jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+                jvmTarget.set(JvmTarget.JVM_17)
             }
+        }
+
+        dependencies {
+            "implementation"(libs.findBundle("koin-compose").get())
+            "implementation"(libs.findBundle("networking").get())
+            "testImplementation"(libs.findLibrary("koin-test").get())
         }
     }
 }
