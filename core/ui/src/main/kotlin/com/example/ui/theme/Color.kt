@@ -20,15 +20,15 @@ data class MovieAppColors(
     val overlay: Color
 )
 
-val YellowPrimary   = Color(0xFFFFC44A)
-val Neutral01Black  = Color(0xFF080808)
-val Neutral02       = Color(0xFF1C1C1C)
-val Neutral03       = Color(0xFF5D5D5D)
-val Neutral04       = Color(0xFF808080)
-val Neutral05       = Color(0xFFA5A5A5)
-val Neutral06       = Color(0xFFCACACA)
-val Neutral07       = Color(0xFFDEDEDE)
-val Neutral08       = Color(0xFFEAEAEA)
+private val YellowPrimary = Color(0xFFFFC44A)
+private val Neutral01Black = Color(0xFF080808)
+private val Neutral02 = Color(0xFF1C1C1C)
+private val Neutral03 = Color(0xFF5D5D5D)
+private val Neutral04 = Color(0xFF808080)
+private val Neutral05 = Color(0xFFA5A5A5)
+private val Neutral06 = Color(0xFFCACACA)
+private val Neutral07 = Color(0xFFDEDEDE)
+private val Neutral08 = Color(0xFFEAEAEA)
 
 val DarkMovieColors = MovieAppColors(
     primary = YellowPrimary,

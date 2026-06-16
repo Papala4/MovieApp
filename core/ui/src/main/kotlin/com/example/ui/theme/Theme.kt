@@ -32,12 +32,10 @@ fun MovieAppTheme(
 object MovieTheme {
     val colors: MovieAppColors
         @Composable
-        @ReadOnlyComposable
         get() = LocalMovieColors.current
 
     val typography: MovieAppTypography
         @Composable
-        @ReadOnlyComposable
         get() = LocalMovieTypography.current
 
 }

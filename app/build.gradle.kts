@@ -10,3 +10,7 @@ android {
         applicationId = "com.movieapp"
     }
 }
+
+dependencies{
+    implementation(project(":core:ui"))
+}
