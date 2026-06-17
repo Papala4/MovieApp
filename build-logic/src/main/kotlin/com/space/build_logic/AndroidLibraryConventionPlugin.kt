@@ -1,31 +1,33 @@
 package com.space.build_logic
 
-import com.android.build.gradle.LibraryExtension
+import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 
 class AndroidLibraryConventionPlugin : Plugin<Project> {
+
     override fun apply(target: Project) {
         with(target) {
+
             with(pluginManager) {
                 apply("com.android.library")
-                apply("org.jetbrains.kotlin.android")
             }
 
             extensions.configure<LibraryExtension> {
-                configureKotlinAndroid(this)
-                defaultConfig.targetSdk = 35
+                target.configureKotlinAndroid(this)
 
-                buildTypes {
-                    release {
-                        consumerProguardFiles("consumer-rules.pro")
-                    }
+                defaultConfig {
+                    consumerProguardFiles("consumer-rules.pro")
                 }
+            }
 
-                buildFeatures {
-                    buildConfig = false
-                }
+            dependencies {
+                add(
+                    "implementation",
+                    libs.findLibrary("koin-android").get()
+                )
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.space.movieapp
+package com.space.movieapp.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
