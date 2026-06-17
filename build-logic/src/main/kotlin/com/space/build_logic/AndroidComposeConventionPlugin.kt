@@ -1,38 +1,31 @@
 package com.space.build_logic
 
 import com.android.build.api.dsl.ApplicationExtension
-import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
-import org.gradle.api.artifacts.VersionCatalogsExtension
 
 class AndroidComposeConventionPlugin : Plugin<Project> {
+    override fun apply(target: Project) {
+        with(target) {
+            pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
 
-    override fun apply(target: Project) = with(target) {
-
-        pluginManager.apply("org.jetbrains.kotlin.plugin.compose")
-
-        val androidExtension: CommonExtension<*, *, *, *, *, *> =
-            extensions.findByType(LibraryExtension::class.java)
-                ?: extensions.getByType(ApplicationExtension::class.java)
-
-        androidExtension.buildFeatures {
-            compose = true
-        }
-
-        val libs =
-            extensions.getByType<VersionCatalogsExtension>().named("libs")
-
-        dependencies {
-            val bom = libs.findLibrary("compose-bom").get()
-            add("implementation", platform(bom))
-            add("androidTestImplementation", platform(bom))
-
-            add("implementation", libs.findBundle("compose-ui").get())
-            add("debugImplementation", libs.findLibrary("compose-ui-tooling").get())
+            when{
+                pluginManager.hasPlugin("movieapp.android.application") -> {
+                    configureAndroidCompose(
+                        extensions.getByType<ApplicationExtension>()
+                    )
+                }
+                pluginManager.hasPlugin("movieapp.android.library") -> {
+                    configureAndroidCompose(
+                        extensions.getByType<LibraryExtension>()
+                    )
+                }
+                else -> error(
+                    "Unsupported project type."
+                )
+            }
         }
     }
 }

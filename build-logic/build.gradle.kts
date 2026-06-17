@@ -34,21 +34,9 @@ gradlePlugin {
             implementationClass = "com.space.build_logic.AndroidComposeConventionPlugin"
         }
 
-
-        register("androidNetworking") {
-            id = "movieapp.android.networking"
-            implementationClass = "com.space.build_logic.AndroidNetworkingConventionPlugin"
-        }
-
-
         register("androidFeature") {
             id = "movieapp.android.feature"
             implementationClass = "com.space.build_logic.AndroidFeatureConventionPlugin"
-        }
-
-        register("jvmLibrary") {
-            id = "movieapp.jvm.library"
-            implementationClass = "com.space.build_logic.JvmLibraryConventionPlugin"
         }
     }
 }
