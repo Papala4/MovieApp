@@ -1,6 +1,6 @@
 plugins {
-    id("movieapp.android.library")
-    id("movieapp.android.compose")
+    alias(libs.plugins.movieapp.android.library)
+    alias(libs.plugins.movieapp.android.compose)
 }
 
 android {

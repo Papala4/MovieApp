@@ -72,6 +72,7 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 movieapp-android-application = { id = "movieapp.android.application" }
 movieapp-android-compose = { id = "movieapp.android.compose" }
+movieapp-android-library = { id = "movieapp.android.library" }
 
 
 [bundles]
