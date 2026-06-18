@@ -1,16 +1,23 @@
 package com.space.ui.theme
 
-import androidx.compose.ui.unit.dp
+import com.space.ui.theme.Dimensions as Dim
 
 object Spacing {
-    val spacing4 = 4.dp
-    val spacing8 = 8.dp
-    val spacing10 = 10.dp
-    val spacing12 = 12.dp
-    val spacing16 = 16.dp
-    val spacing20 = 20.dp
-    val spacing22 = 22.dp
-    val spacing26 = 26.dp
-    val spacing40 = 40.dp
-    val spacing64 = 64.dp
+    val spacing2 = Dim.dimension02
+    val spacing4 = Dim.dimension04
+    val spacing8 = Dim.dimension08
+    val spacing10 = Dim.dimension10
+    val spacing12 = Dim.dimension12
+    val spacing14 = Dim.dimension14
+    val spacing16 = Dim.dimension16
+    val spacing20 = Dim.dimension20
+    val spacing22 = Dim.dimension22
+    val spacing26 = Dim.dimension26
+    val spacing32 = Dim.dimension32
+    val spacing40 = Dim.dimension40
+    val spacing42 = Dim.dimension42
+    val spacing48 = Dim.dimension48
+    val spacing56 = Dim.dimension56
+    val spacing64 = Dim.dimension64
+    val spacing124 = Dim.dimension124
 }

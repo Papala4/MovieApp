@@ -1,18 +1,14 @@
 plugins {
-    id("movieapp.android.library")
-    id("movieapp.android.compose")
+    alias(libs.plugins.movieapp.android.library)
+    alias(libs.plugins.movieapp.android.compose)
 }
 
 android {
-    namespace = "com.example.ui"
+    namespace = "com.space.ui"
 }
 
 dependencies {
     implementation(libs.appcompat)
     implementation(libs.core.ktx)
     implementation(libs.material)
-    implementation(libs.runtime)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.espresso.core)
-    androidTestImplementation(libs.ext.junit)
 }

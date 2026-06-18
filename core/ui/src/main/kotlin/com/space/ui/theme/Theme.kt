@@ -4,7 +4,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.ReadOnlyComposable
 
 @Composable
 fun MovieAppTheme(
@@ -32,12 +31,10 @@ fun MovieAppTheme(
 object MovieTheme {
     val colors: MovieAppColors
         @Composable
-        @ReadOnlyComposable
         get() = LocalMovieColors.current
 
     val typography: MovieAppTypography
         @Composable
-        @ReadOnlyComposable
         get() = LocalMovieTypography.current
 
 }

@@ -20,31 +20,35 @@ data class MovieAppColors(
     val overlay: Color
 )
 
-val YellowPrimary   = Color(0xFFFFC44A)
-val Neutral01Black  = Color(0xFF080808)
-val Neutral02       = Color(0xFF1C1C1C)
-val Neutral03       = Color(0xFF5D5D5D)
-val Neutral04       = Color(0xFF808080)
-val Neutral05       = Color(0xFFA5A5A5)
-val Neutral06       = Color(0xFFCACACA)
-val Neutral07       = Color(0xFFDEDEDE)
-val Neutral08       = Color(0xFFEAEAEA)
+private val YellowPrimary = Color(0xFFFFC44A)
+private val Neutral01 = Color(0xFF080808)
+private val Neutral02 = Color(0xFF1C1C1C)
+private val Neutral03 = Color(0xFF5D5D5D)
+private val Neutral04 = Color(0xFF808080)
+private val Neutral05 = Color(0xFFA5A5A5)
+private val Neutral06 = Color(0xFFCACACA)
+private val Neutral07 = Color(0xFFDEDEDE)
+private val Neutral08 = Color(0xFFEAEAEA)
+private val WarningColor = Color(0xFFFFEB3B)
+private val SuccessColor = Color(0xFF4CAF50)
+private val ErrorColor = Color(0xFFFC0000)
+
 
 val DarkMovieColors = MovieAppColors(
     primary = YellowPrimary,
-    background = Neutral01Black,
+    background = Neutral01,
     surface = Neutral02,
-    surfaceVariant = Neutral06,
-    onPrimary = Neutral01Black,
-    onBackground = Neutral04,
-    onSurface = Neutral08,
+    surfaceVariant = Neutral03,
+    onPrimary = Neutral01,
+    onBackground = Neutral08,
+    onSurface = Neutral07,
     textPrimary = Neutral08,
-    textSecondary = Neutral05,
-    border = Neutral03,
-    error = Color(0xFFFC002B),
-    success = Color(0xFF4CAF50),
-    warning = YellowPrimary,
-    overlay = Neutral07
+    textSecondary = Neutral06,
+    border = Neutral04,
+    overlay = Neutral05,
+    error = ErrorColor,
+    success = SuccessColor,
+    warning = WarningColor,
 )
 
 val LocalMovieColors = staticCompositionLocalOf { DarkMovieColors }

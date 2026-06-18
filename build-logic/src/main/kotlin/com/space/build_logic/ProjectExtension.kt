@@ -1,9 +1,11 @@
 package com.space.build_logic
 
-import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension
-import com.android.build.api.dsl.LibraryExtension
+import org.gradle.api.JavaVersion
 import org.gradle.api.Project
+import org.gradle.api.artifacts.VersionCatalog
+import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -13,11 +15,15 @@ internal fun Project.configureKotlinAndroid(
 ) {
     commonExtension.apply {
         compileSdk = 37
-    }
 
-    when (commonExtension) {
-        is ApplicationExtension -> commonExtension.defaultConfig { minSdk = 26 }
-        is LibraryExtension -> commonExtension.defaultConfig { minSdk = 26 }
+        defaultConfig.apply {
+            minSdk = 26
+        }
+
+        compileOptions.apply {
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
+        }
     }
 
     tasks.withType<KotlinCompile>().configureEach {
@@ -31,3 +37,6 @@ internal fun Project.configureKotlinAndroid(
         }
     }
 }
+
+val Project.libs
+    get():VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")

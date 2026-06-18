@@ -1,12 +1,12 @@
 plugins {
-    id("movieapp.android.application")
-    id("movieapp.android.koin")
+    alias(libs.plugins.movieapp.android.application)
+    alias(libs.plugins.movieapp.android.compose)
 }
 
 android {
-    namespace = "com.movieapp"
+    namespace = "com.space.movieapp"
+}
 
-    defaultConfig {
-        applicationId = "com.movieapp"
-    }
+dependencies{
+    implementation(project(":core:ui"))
 }
