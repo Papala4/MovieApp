@@ -1,8 +1,8 @@
-package com.space.ui.common
+package com.space.ui.component
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
-import com.example.ui.R
+import com.space.ui.R
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,9 +13,9 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun FilterButton(
-    onToggleChange: (Boolean) -> Unit,
     isSelected: Boolean,
     enabled: Boolean = true,
+    onToggleChange: (Boolean) -> Unit
 ) {
         IconToggleButton(
             checked = isSelected,

@@ -5,8 +5,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.unit.sp
 import com.space.ui.R
+import com.space.ui.theme.TextSizing as Size
 
 
 val MontserratFontFamily = FontFamily(
@@ -18,27 +18,34 @@ val MontserratFontFamily = FontFamily(
 data class MovieAppTypography(
     val titleMedium: TextStyle,
     val titleSmall: TextStyle,
-    val bodyMedium: TextStyle
+    val bodyMedium: TextStyle,
+    val bodySmall: TextStyle
 )
 
 val MovieTypography = MovieAppTypography(
     titleMedium = TextStyle(
         fontFamily = MontserratFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 20.sp,
-        lineHeight = 26.sp
+        fontSize = Size.size20,
+        lineHeight = Size.size26
     ),
     titleSmall = TextStyle(
         fontFamily = MontserratFontFamily,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 16.sp,
-        lineHeight = 21.sp
+        fontSize = Size.size16,
+        lineHeight = Size.size18
     ),
     bodyMedium = TextStyle(
         fontFamily = MontserratFontFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 14.sp,
-        lineHeight = 18.sp
+        fontSize = Size.size14,
+        lineHeight = Size.size18
+    ),
+    bodySmall = TextStyle(
+        fontFamily = MontserratFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = Size.size10,
+        lineHeight = Size.size14
     )
 )
 

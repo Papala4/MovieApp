@@ -1,4 +1,4 @@
-package com.space.ui.common
+package com.space.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -16,17 +16,33 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.space.ui.theme.Dimensions
 import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.Radius
 import com.space.ui.theme.Spacing
 
+/**
+ * [CategoryControl] – a horizontal pill-style tab/filter selector.
+ *
+ * Renders a row of tappable labels where exactly one item is "selected" at a time.
+ * The selected item is visually highlighted with a filled background, while
+ * unselected items show a bordered outline style.
+ *
+ * @param items       The list of category labels to display (e.g. ["All", "Action", "Drama"]).
+ * @param selected    The currently selected label — must match one of the [items] values.
+ * @param modifier    Optional external modifier for positioning or sizing.
+ * @param onItemClick Called with the label string when the user taps a category.
+ *
+ *
+ * */
+
+
 @Composable
-fun AppSegmentedControl(
+fun CategoryControl(
     items: List<String>,
     selected: String,
+    modifier: Modifier = Modifier,
     onItemClick: (String) -> Unit,
-    modifier: Modifier = Modifier
 ) {
     val colors = MovieTheme.colors
 
@@ -46,7 +62,7 @@ fun AppSegmentedControl(
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .height(21.dp)
+                    .height(Spacing.spacing22)
                     .wrapContentWidth()
                     .clip(Radius.radius30)
                     .background(
@@ -54,7 +70,7 @@ fun AppSegmentedControl(
                     )
                     .then(
                         if (!isSelected) Modifier.border(
-                            width = 1.dp,
+                            width = Dimensions.dimension01,
                             color = colors.textPrimary,
                             shape = Radius.radius30
                         ) else Modifier
@@ -65,7 +81,7 @@ fun AppSegmentedControl(
 
             Text(
                     text = item,
-                    style = MovieTheme.typography.labelSmall,
+                    style = MovieTheme.typography.bodySmall,
                     color = if (isSelected)
                         colors.onPrimary
                     else
@@ -78,8 +94,8 @@ fun AppSegmentedControl(
 
 @Preview
 @Composable
-fun PreviewAppSegmentedControl() {
-    AppSegmentedControl(
+fun PreviewCategoryControl() {
+    CategoryControl(
         items = listOf("Test1", "Test2"),
         selected = "Test1",
         onItemClick = {}

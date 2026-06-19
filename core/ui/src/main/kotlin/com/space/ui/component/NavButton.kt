@@ -1,5 +1,6 @@
-package com.space.ui.common
+package com.space.ui.component
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
@@ -8,30 +9,31 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.space.ui.R
 import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.Radius
 import com.space.ui.theme.Spacing
 
 @Composable
-fun AppButton(
+fun NavButton(
     text: String,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    style: AppButtonStyle = AppButtonStyle.Primary,
-    icon: ImageVector? = null
+    style: NavButtonStyle = NavButtonStyle.Primary,
+    @DrawableRes icon: Int,
+    onClick: () -> Unit
 ) {
     val colors = MovieTheme.colors
 
     val backgroundColor = when (style) {
-        AppButtonStyle.Primary -> colors.primary
-        AppButtonStyle.Secondary -> colors.surface
+        NavButtonStyle.Primary -> colors.primary
+        NavButtonStyle.Secondary -> colors.surface
     }
 
     val contentColor = when (style) {
-        AppButtonStyle.Primary -> colors.onPrimary
-        AppButtonStyle.Secondary -> colors.textPrimary
+        NavButtonStyle.Primary -> colors.onPrimary
+        NavButtonStyle.Secondary -> colors.textPrimary
     }
 
     Button(
@@ -43,32 +45,31 @@ fun AppButton(
         ),
         modifier = modifier
     ) {
-        if (icon != null) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null
-            )
-            Spacer(modifier = Modifier.width(Spacing.spacing8))
-        }
+        Icon(
+            painter = painterResource(icon),
+            contentDescription = null
+        )
+        Spacer(modifier = Modifier.width(Spacing.spacing8))
 
         Text(
             text = text,
-            style = MovieTheme.typography.labelLarge
+            style = MovieTheme.typography.bodyMedium
         )
     }
 }
 
-enum class AppButtonStyle {
+enum class NavButtonStyle {
     Primary,
     Secondary
 }
 
 @Preview
 @Composable
-fun AppButtonPreview() {
-    AppButton(
+fun NavButtonPreview() {
+    NavButton(
         "Test",
-        onClick = {},
-        style = AppButtonStyle.Primary
+        style = NavButtonStyle.Primary,
+        icon = R.drawable.search_btn,
+        onClick = {}
     )
 }

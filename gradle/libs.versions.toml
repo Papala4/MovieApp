@@ -1,8 +1,8 @@
 [versions]
 agp = "9.1.1"
 kotlin = "2.3.20"
-ksp = "2.0.0-1.0.21"
-compose-bom = "2024.06.00"
+ksp = "2.3.9"
+compose-bom = "2025.05.01"
 koin = "4.0.4"
 retrofit = "2.11.0"
 okhttp = "4.12.0"
@@ -21,6 +21,7 @@ kotest = "5.9.1"
 appcompat = "1.7.0"
 core-ktx = "1.13.1"
 material = "1.12.0"
+core-ktx-version = "1.19.0"
 
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
@@ -61,11 +62,12 @@ junit = { group = "junit", name = "junit", version = "4.13.2" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx-version" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version = "2.4.0" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

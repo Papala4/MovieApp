@@ -1,4 +1,4 @@
-package com.space.ui.common
+package com.space.ui.component
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconToggleButton
@@ -6,13 +6,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.ui.R
+import com.space.ui.R
 
 @Composable
 fun FavouriteButton(
-    onToggleChange: (Boolean) -> Unit,
     isFavourite: Boolean,
     enabled: Boolean = true,
+    onToggleChange: (Boolean) -> Unit
 ) {
     IconToggleButton(
         checked = isFavourite,
