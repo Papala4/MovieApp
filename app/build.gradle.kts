@@ -6,3 +6,7 @@ plugins {
 android {
     namespace = "com.space.movieapp"
 }
+
+dependencies{
+    implementation(project(":core:ui"))
+}
