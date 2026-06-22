@@ -28,6 +28,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                     "implementation",
                     libs.findLibrary("koin-android").get()
                 )
+                "implementation"(libs.findBundle("networking").get())
             }
         }
     }
