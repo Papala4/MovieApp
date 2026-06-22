@@ -1,4 +1,4 @@
-package com.space.ui.component
+package com.space.ui.component.icons_labels
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconToggleButton

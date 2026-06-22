@@ -1,4 +1,4 @@
-package com.space.ui.component
+package com.space.ui.component.search_filter
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

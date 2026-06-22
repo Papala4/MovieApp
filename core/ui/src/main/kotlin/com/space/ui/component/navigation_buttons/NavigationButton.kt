@@ -1,4 +1,4 @@
-package com.space.ui.component
+package com.space.ui.component.navigation_buttons
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Spacer
@@ -17,28 +17,21 @@ import com.space.ui.theme.Radius
 import com.space.ui.theme.Spacing
 
 @Composable
-fun NavButton(
+fun NavigationButton(
     text: String,
     modifier: Modifier = Modifier,
-    style: NavButtonStyle = NavButtonStyle.Primary,
+    active: Boolean = false,
     @DrawableRes icon: Int,
     onClick: () -> Unit
 ) {
     val colors = MovieTheme.colors
 
-    val backgroundColor = when (style) {
-        NavButtonStyle.Primary -> colors.primary
-        NavButtonStyle.Secondary -> colors.surface
-    }
-
-    val contentColor = when (style) {
-        NavButtonStyle.Primary -> colors.onPrimary
-        NavButtonStyle.Secondary -> colors.textPrimary
-    }
+    val backgroundColor = if(active) colors.primary else colors.onPrimary
+    val contentColor = if(active) colors.onPrimary else colors.textPrimary
 
     Button(
         onClick = onClick,
-        shape = Radius.radius30,
+        shape = Radius.radius8,
         colors = ButtonDefaults.buttonColors(
             containerColor = backgroundColor,
             contentColor = contentColor
@@ -58,17 +51,12 @@ fun NavButton(
     }
 }
 
-enum class NavButtonStyle {
-    Primary,
-    Secondary
-}
-
 @Preview
 @Composable
-fun NavButtonPreview() {
-    NavButton(
+fun NavigationButtonPreview() {
+    NavigationButton(
         "Test",
-        style = NavButtonStyle.Primary,
+        active = true,
         icon = R.drawable.search_btn,
         onClick = {}
     )
