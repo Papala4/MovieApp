@@ -1,16 +1,14 @@
-package com.space.ui.component
+package com.space.ui.component.cards
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -18,8 +16,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.space.ui.component.icons_labels.FavouriteButton
 import com.space.ui.theme.Dimensions
-import com.space.ui.theme.MovieTheme
+import com.space.ui.theme.MovieAppTheme
 import com.space.ui.theme.MovieTheme.colors
 import com.space.ui.theme.Radius
 import com.space.ui.theme.Spacing
@@ -47,14 +46,14 @@ fun MovieCard(
     onFavoriteToggle: (Movie) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val colors = MovieTheme.colors
+    val colors = colors
 
     Card(
         modifier = modifier
             .width(Dimensions.dimension164),
         shape = Radius.radius16,
-        colors = CardDefaults.cardColors(containerColor = colors.primary),
-        elevation = CardDefaults.cardElevation(defaultElevation = Dimensions.dimension06)
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
         Column {
             Box(
@@ -68,19 +67,8 @@ fun MovieCard(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxSize()
-                        .clip(Radius.radius16)
-                )
+                        .clip(Radius.radius16),
 
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(Spacing.spacing60)
-                        .align(Alignment.BottomCenter)
-                        .background(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(Color.Transparent, colors.surface)
-                            )
-                        )
                 )
 
                 GenreBadge(
@@ -94,29 +82,28 @@ fun MovieCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = Spacing.spacing10, vertical = Spacing.spacing8),
+                    .padding(vertical = Spacing.spacing8),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = movie.title,
                         color = colors.textPrimary,
-                        fontSize = TextSizing.size12,
+                        fontSize = TextSizing.size14,
                         fontWeight = FontWeight.SemiBold,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
-                    Spacer(modifier = Modifier.height(Spacing.spacing2))
                     Text(
                         text = movie.year.toString(),
                         color = colors.textSecondary,
-                        fontSize = TextSizing.size10
+                        fontSize = TextSizing.size12
                     )
                 }
 
                 FavouriteButton(
                     isFavourite = movie.isFavorite,
-                    enabled = true,
+                    enabled = false,
                     onToggleChange = { onFavoriteToggle(movie) }
                 )
             }
@@ -128,7 +115,7 @@ fun MovieCard(
 fun GenreBadge(genre: String, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
-            .background(color = colors.primary, shape = RoundedCornerShape(20.dp))
+            .background(color = colors.primary, shape = Radius.radius24)
             .padding(horizontal = Spacing.spacing10, vertical = Spacing.spacing4)
     ) {
         Text(
@@ -169,15 +156,15 @@ fun MovieRow(
 @Preview
 @Composable
 fun PreviewMovieCard() {
-    MaterialTheme {
-        Box(modifier = Modifier.padding(16.dp)) {
+    MovieAppTheme {
+        Box(modifier = Modifier.background(Color.Black).padding(16.dp)) {
             MovieCard(
                 movie = Movie(
                     id = 1,
                     year = 2019,
                     title = "Test1",
-                    genre = "SCI-FI",
-                    posterUrl = "https://petapixel.com/assets/uploads/2024/01/High-resolution-image-of-sun-1536x806.jpg"
+                    genre = "Adventure",
+                    posterUrl = ""
                 ),
                 onFavoriteToggle = {}
             )

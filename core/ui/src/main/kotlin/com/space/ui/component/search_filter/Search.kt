@@ -1,4 +1,4 @@
-package com.space.ui.component
+package com.space.ui.component.search_filter
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.space.ui.theme.MovieTheme
@@ -28,7 +29,7 @@ import com.space.ui.theme.Spacing
 import com.space.ui.theme.TextSizing
 
 /**
- * [SearchBar] – a styled, focus-aware search input field.
+ * [Search] – a styled, focus-aware search input field.
  *
  * Features a search icon on the left and a text input on the right.
  * - Tapping the icon toggles focus and keyboard visibility.
@@ -43,11 +44,11 @@ import com.space.ui.theme.TextSizing
 */
 
 @Composable
-fun SearchBar(
+fun Search(
     query: String,
     onQueryChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    placeholder: String = "Search",
+    placeholder: String = stringResource(R.string.search_placeholder),
     enabled: Boolean = true
 ) {
     val focusRequester = remember { FocusRequester() }
@@ -55,13 +56,6 @@ fun SearchBar(
     var isFocused by remember { mutableStateOf(false) }
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
-
-    LaunchedEffect(query) {
-        if(query.isEmpty()) {
-            focusManager.clearFocus()
-            keyboardController?.hide()
-        }
-    }
 
     Box(
         modifier = modifier
@@ -78,7 +72,7 @@ fun SearchBar(
         ) {
             Icon(
                 painter = painterResource(R.drawable.search_btn),
-                contentDescription = "Search",
+                contentDescription = null,
                 modifier = Modifier
                     .size(Dimensions.dimension14)
                     .clickable {
@@ -130,10 +124,10 @@ fun SearchBar(
 
 @Preview
 @Composable
-private fun SearchBarPreview() {
+private fun SearchPreview() {
     var query by remember { mutableStateOf("") }
 
-    SearchBar(
+    Search(
         query = query,
         onQueryChange = { query = it }
     )
