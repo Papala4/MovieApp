@@ -32,7 +32,6 @@ private val Neutral08 = Color(0xFFEAEAEA)
 private val WarningColor = Color(0xFFFFEB3B)
 private val SuccessColor = Color(0xFF4CAF50)
 private val ErrorColor = Color(0xFFFC0000)
-// ეს სამი არ გჭირდება
 
 val DarkMovieColors = MovieAppColors(
     primary = YellowPrimary,
