@@ -21,8 +21,12 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MovieApp"
-include(":app")
+includeAllModules("core", "features")
 
-include(":core:ui")
-include(":core:common")
+fun includeAllModules(vararg groupDirs: String) {
+    groupDirs.forEach { group ->
+        File(rootDir, group).listFiles()?.filter { it.isDirectory }?.forEach {
+            include(":$group:${it.name}")
+        }
+    }
+}
