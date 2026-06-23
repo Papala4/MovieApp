@@ -36,11 +36,11 @@ import com.space.ui.theme.TextSizing
  * - Clearing all text automatically releases focus and hides the keyboard.
  * - Placeholder is hidden when the field is focused.
  *
- * @param query         The current search text (controlled from outside).
+ * @param query The current search text (controlled from outside).
  * @param onQueryChange Called on every keystroke with the updated text.
- * @param modifier      Optional external modifier for positioning or sizing.
- * @param placeholder   Hint text shown when query is empty and field is unfocused. Defaults to "Search".
- * @param enabled       Whether the field accepts input. Defaults to true.
+ * @param modifier Optional external modifier for positioning or sizing.
+ * @param placeholder Hint text shown when query is empty and field is unfocused. Defaults to "Search".
+ * @param enabled Whether the field accepts input. Defaults to true.
 */
 
 @Composable
@@ -125,10 +125,8 @@ fun Search(
 @Preview
 @Composable
 private fun SearchPreview() {
-    var query by remember { mutableStateOf("") }
-
     Search(
-        query = query,
-        onQueryChange = { query = it }
+        query = "",
+        onQueryChange = {}
     )
 }

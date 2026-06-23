@@ -31,13 +31,11 @@ fun FilterButton(
                 tint = Color.Unspecified
             )
         }
-
 }
-
 
 @Preview
 @Composable
-fun PreviewFilterButton() {
+private fun PreviewFilterButton() {
     FilterButton(
         onToggleChange = {},
         isSelected = true

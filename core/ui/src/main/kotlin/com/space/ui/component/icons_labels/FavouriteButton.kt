@@ -27,12 +27,11 @@ fun FavouriteButton(
             tint = Color.Unspecified
         )
     }
-
 }
 
 @Preview
 @Composable
-fun PreviewFavouriteButton() {
+private fun PreviewFavouriteButton() {
     FavouriteButton(
         onToggleChange = {},
         isFavourite = false
