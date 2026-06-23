@@ -28,14 +28,13 @@ import com.space.ui.theme.Spacing
  * The selected item is visually highlighted with a filled background, while
  * unselected items show a bordered outline style.
  *
- * @param items       The list of category labels to display (e.g. ["All", "Action", "Drama"]).
- * @param selected    The currently selected label — must match one of the [items] values.
- * @param modifier    Optional external modifier for positioning or sizing.
+ * @param items The list of category labels to display (e.g. ["All", "Action", "Drama"]).
+ * @param selected The currently selected label — must match one of the [items] values.
+ * @param modifier Optional external modifier for positioning or sizing.
  * @param onItemClick Called with the label string when the user taps a category.
  *
  *
  * */
-
 
 @Composable
 fun CategoryControl(
@@ -66,7 +65,7 @@ fun CategoryControl(
                     .wrapContentWidth()
                     .clip(Radius.radius30)
                     .background(
-                        if (isSelected) colors.primary else colors.onPrimary
+                        color = if (isSelected) colors.primary else colors.onPrimary
                     )
                     .then(
                         if (!isSelected) Modifier.border(
@@ -82,10 +81,7 @@ fun CategoryControl(
             Text(
                     text = item,
                     style = MovieTheme.typography.bodySmall,
-                    color = if (isSelected)
-                        colors.onPrimary
-                    else
-                        colors.textPrimary
+                    color = if (isSelected) colors.onPrimary else colors.textPrimary
                 )
             }
         }
@@ -94,7 +90,7 @@ fun CategoryControl(
 
 @Preview
 @Composable
-fun PreviewCategoryControl() {
+private fun PreviewCategoryControl() {
     CategoryControl(
         items = listOf("Test1", "Test2"),
         selected = "Test1",

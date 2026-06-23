@@ -53,7 +53,7 @@ fun NavigationButton(
 
 @Preview
 @Composable
-fun NavigationButtonPreview() {
+private fun NavigationButtonPreview() {
     NavigationButton(
         "Test",
         active = true,

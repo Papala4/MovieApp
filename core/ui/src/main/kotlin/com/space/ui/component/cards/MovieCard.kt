@@ -36,17 +36,17 @@ data class Movie(
 /**
  * [MovieCard] – a self-contained, reusable card component.
  *
- * @param movie        The movie data to display.
- * @param onFavoriteToggle  Called when the user taps the heart icon.
- * @param modifier     Optional external modifier for sizing / spacing.
+ * @param movie The movie data to display.
+ * @param onFavoriteToggle Called when the user taps the heart icon.
+ * @param modifier Optional external modifier for sizing / spacing.
  */
+
 @Composable
-fun MovieCard(
+private fun MovieCard(
     movie: Movie,
     onFavoriteToggle: (Movie) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val colors = colors
 
     Card(
         modifier = modifier
@@ -112,7 +112,7 @@ fun MovieCard(
 }
 
 @Composable
-fun GenreBadge(genre: String, modifier: Modifier = Modifier) {
+private fun GenreBadge(genre: String, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .background(color = colors.primary, shape = Radius.radius24)
@@ -155,7 +155,7 @@ fun MovieRow(
 
 @Preview
 @Composable
-fun PreviewMovieCard() {
+private fun PreviewMovieCard() {
     MovieAppTheme {
         Box(modifier = Modifier.background(Color.Black).padding(16.dp)) {
             MovieCard(

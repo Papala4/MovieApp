@@ -61,7 +61,7 @@ fun BackButton(
 
 @Preview
 @Composable
-fun PreviewHeader() {
+private fun PreviewHeader() {
     Header(
         title = "Test",
         onBackClick = {}
