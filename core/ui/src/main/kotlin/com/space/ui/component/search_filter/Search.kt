@@ -1,4 +1,4 @@
-package com.space.ui.component
+package com.space.ui.component.search_filter
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.space.ui.theme.MovieTheme
@@ -28,26 +29,26 @@ import com.space.ui.theme.Spacing
 import com.space.ui.theme.TextSizing
 
 /**
- * [SearchBar] – a styled, focus-aware search input field.
+ * [Search] – a styled, focus-aware search input field.
  *
  * Features a search icon on the left and a text input on the right.
  * - Tapping the icon toggles focus and keyboard visibility.
  * - Clearing all text automatically releases focus and hides the keyboard.
  * - Placeholder is hidden when the field is focused.
  *
- * @param query         The current search text (controlled from outside).
+ * @param query The current search text (controlled from outside).
  * @param onQueryChange Called on every keystroke with the updated text.
- * @param modifier      Optional external modifier for positioning or sizing.
- * @param placeholder   Hint text shown when query is empty and field is unfocused. Defaults to "Search".
- * @param enabled       Whether the field accepts input. Defaults to true.
+ * @param modifier Optional external modifier for positioning or sizing.
+ * @param placeholder Hint text shown when query is empty and field is unfocused. Defaults to "Search".
+ * @param enabled Whether the field accepts input. Defaults to true.
 */
 
 @Composable
-fun SearchBar(
+fun Search(
     query: String,
     onQueryChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    placeholder: String = "Search",
+    placeholder: String = stringResource(R.string.search_placeholder),
     enabled: Boolean = true
 ) {
     val focusRequester = remember { FocusRequester() }
@@ -55,13 +56,6 @@ fun SearchBar(
     var isFocused by remember { mutableStateOf(false) }
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
-
-    LaunchedEffect(query) {
-        if(query.isEmpty()) {
-            focusManager.clearFocus()
-            keyboardController?.hide()
-        }
-    }
 
     Box(
         modifier = modifier
@@ -78,7 +72,7 @@ fun SearchBar(
         ) {
             Icon(
                 painter = painterResource(R.drawable.search_btn),
-                contentDescription = "Search",
+                contentDescription = null,
                 modifier = Modifier
                     .size(Dimensions.dimension14)
                     .clickable {
@@ -130,11 +124,9 @@ fun SearchBar(
 
 @Preview
 @Composable
-private fun SearchBarPreview() {
-    var query by remember { mutableStateOf("") }
-
-    SearchBar(
-        query = query,
-        onQueryChange = { query = it }
+private fun SearchPreview() {
+    Search(
+        query = "",
+        onQueryChange = {}
     )
 }

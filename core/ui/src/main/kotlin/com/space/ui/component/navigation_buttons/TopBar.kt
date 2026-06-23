@@ -1,4 +1,4 @@
-package com.space.ui.component
+package com.space.ui.component.navigation_buttons
 
 import com.space.ui.R
 import androidx.compose.foundation.layout.Box
@@ -17,10 +17,9 @@ import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.Spacing
 
 @Composable
-fun TopBar(
+fun Header(
     title: String,
-    isButton: Boolean = true,
-    onBackClick: () -> Unit
+    onBackClick: (() -> Unit)? = null
 ) {
     val colors = MovieTheme.colors
 
@@ -28,21 +27,11 @@ fun TopBar(
         modifier = Modifier
             .fillMaxWidth()
             .height(Spacing.spacing56)
-            .padding(horizontal = Spacing.spacing16)
+            .padding(horizontal = Spacing.spacing16),
+        contentAlignment = Alignment.CenterStart
     ) {
 
-        if(isButton) {
-            IconButton(
-                onClick = onBackClick,
-                modifier = Modifier.align(Alignment.CenterStart)
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.back_btn),
-                    contentDescription = null,
-                    tint = colors.textPrimary
-                )
-            }
-        }
+        if(onBackClick != null) BackButton(onBackClick)
 
         Text(
             text = title,
@@ -53,10 +42,27 @@ fun TopBar(
     }
 }
 
+@Composable
+fun BackButton(
+    onBackClick: () -> Unit
+) {
+    val colors = MovieTheme.colors
+
+    IconButton(
+        onClick = onBackClick,
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.back_btn),
+            contentDescription = null,
+            tint = colors.textPrimary
+        )
+    }
+}
+
 @Preview
 @Composable
-fun PreviewTopBar() {
-    TopBar(
+private fun PreviewHeader() {
+    Header(
         title = "Test",
         onBackClick = {}
     )
