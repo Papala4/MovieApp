@@ -34,3 +34,5 @@ fun includeAllModules(vararg groupDirs: String) {
             }
     }
 }
+
+include("app")
