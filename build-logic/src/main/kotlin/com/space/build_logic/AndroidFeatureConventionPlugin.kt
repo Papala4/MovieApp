@@ -17,7 +17,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 "implementation"(libs.findLibrary("navigation-compose").get())
                 "implementation"(libs.findLibrary("coroutines-android").get())
                 "implementation"(libs.findLibrary("timber").get())
-//                "implementation"(project(":core:ui"))
+                "implementation"(project(":core:ui"))
                 "testImplementation"(libs.findBundle("testing").get())
             }
         }

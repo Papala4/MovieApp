@@ -21,7 +21,7 @@ dependencyResolutionManagement {
     }
 }
 
-includeAllModules("core", "features")
+includeAllModules("core", "feature")
 
 fun includeAllModules(vararg groupDirs: String) {
     val rootDir = settings.rootDir
