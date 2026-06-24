@@ -1,7 +1,7 @@
 package com.space.network.handler
 
+import com.space.network.api_result.ApiResult
 import com.space.network.exception.ExceptionHandler
-import com.space.network.result.ApiResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response

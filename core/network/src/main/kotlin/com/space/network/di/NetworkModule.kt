@@ -6,6 +6,7 @@ val networkModule = module {
     includes(
         interceptorModule,
         retrofitModule,
-        handlerModule
+        handlerModule,
+        connectivityModule
     )
 }
