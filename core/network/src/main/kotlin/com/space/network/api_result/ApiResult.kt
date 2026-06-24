@@ -1,4 +1,4 @@
-package com.space.network.result
+package com.space.network.api_result
 
 sealed class ApiResult<out T> {
     data object Loading : ApiResult<Nothing>()
