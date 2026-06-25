@@ -3,9 +3,10 @@ plugins {
 }
 
 android {
-    namespace = "com.space.domain"
+    namespace = "com.space.moviedetails.domain"
 }
 
 dependencies {
     implementation(libs.core.ktx)
+    implementation(project(":core:network"))
 }
