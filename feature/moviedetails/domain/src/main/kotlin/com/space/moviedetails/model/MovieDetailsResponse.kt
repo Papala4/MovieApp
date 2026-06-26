@@ -1,12 +1,12 @@
-package com.space.moviedetails.domain.model
+package com.space.moviedetails.model
 
-data class MovieDetailsDomain(
+data class MovieDetailsResponse(
     val id: Int,
     val title: String,
-    val tagline: String,
+    val tagline: String?,
     val overview: String,
     val posterPath: String,
-    val genres: List<String>,
+    val genre: String? = null,
     val runtime: Int,
     val releaseYear: String,
     val voteAverage: Double,
