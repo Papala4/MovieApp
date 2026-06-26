@@ -1,23 +1,21 @@
-package com.space.movieapp
+package com.space.movieapp.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
-import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.space.ui.component.SearchBar
+import com.space.moviedetails.presentation.MovieDetailsScreen
 import com.space.ui.theme.MovieAppTheme
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
-    private val vm: MainActivityViewModel by viewModels()
+    private val vm: MainActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
         val splashScreen = installSplashScreen()
+
+        super.onCreate(savedInstanceState)
 
         splashScreen.setKeepOnScreenCondition {
             vm.isLoading.value
@@ -25,13 +23,8 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
-            val isLoading by vm.isLoading.collectAsStateWithLifecycle()
-
             MovieAppTheme {
-                if (!isLoading) {
-                    SearchBar("",
-                        {})
-                }
+                MovieDetailsScreen()
             }
         }
     }

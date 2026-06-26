@@ -42,8 +42,3 @@ val retrofitModule = module {
             .build()
     }
 }
-
-//val networkModule = module {
-//    single<ExceptionHandler> { ExceptionHandlerImpl() }
-//    single<ResponseHandler> { ResponseHandlerImpl(get()) }
-//}

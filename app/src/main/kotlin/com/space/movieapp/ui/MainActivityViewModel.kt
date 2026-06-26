@@ -1,4 +1,4 @@
-package com.space.movieapp
+package com.space.movieapp.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,8 +16,7 @@ class MainActivityViewModel : ViewModel() {
     init {
         viewModelScope.launch {
             delay(3000.milliseconds)
+            _isLoading.update { false }
         }
-
-        _isLoading.update { false }
     }
 }
