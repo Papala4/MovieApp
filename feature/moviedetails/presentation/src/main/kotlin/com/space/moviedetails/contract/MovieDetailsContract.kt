@@ -1,12 +1,12 @@
 package com.space.moviedetails.contract
 
-import com.space.moviedetails.model.MovieDetailsResponse
+import com.space.moviedetails.model.MovieDetailsUi
 import com.space.presentation.base.UIEffect
 import com.space.presentation.base.UIEvent
 
 data class MovieDetailsState(
     val isLoading: Boolean = false,
-    val movie: MovieDetailsResponse? = null,
+    val movie: MovieDetailsUi? = null,
     val error: String? = null
 )
 

@@ -7,7 +7,6 @@ class MovieDetailsMapper {
     fun map(dto: MovieDetailsDto) = MovieDetailsResponse(
         id = dto.id,
         title = dto.title,
-        tagline = dto.tagline.orEmpty(),
         overview = dto.overview,
         posterPath = dto.posterPath?.let { "$IMAGE_BASE_URL$it" }.orEmpty(),
         genre = dto.genres.firstOrNull()?.name,

@@ -4,8 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.space.moviedetails.presentation.MovieDetailsScreen
+import com.space.moviedetails.screen.MovieDetailsScreen
 import com.space.ui.theme.MovieAppTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -24,7 +27,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MovieAppTheme {
-                MovieDetailsScreen()
+                Scaffold { innerPadding ->
+                    MovieDetailsScreen(
+                        movieId = 27205,
+                        modifier = Modifier.padding(paddingValues = innerPadding)
+                    )
+                }
             }
         }
     }

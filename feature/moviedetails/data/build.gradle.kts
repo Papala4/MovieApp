@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.movieapp.android.feature)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {

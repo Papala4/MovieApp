@@ -4,13 +4,15 @@ import androidx.lifecycle.viewModelScope
 import com.space.moviedetails.contract.MovieDetailsEffect
 import com.space.moviedetails.contract.MovieDetailsEvent
 import com.space.moviedetails.contract.MovieDetailsState
+import com.space.moviedetails.mapper.MovieDetailsUiMapper
 import com.space.moviedetails.usecase.GetMovieDetailsUseCase
 import com.space.network.api_result.ApiResult
 import com.space.presentation.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 class MovieDetailsViewModel(
-    private val getMovieDetailsUseCase: GetMovieDetailsUseCase
+    private val getMovieDetailsUseCase: GetMovieDetailsUseCase,
+    private val mapper: MovieDetailsUiMapper
 ) : BaseViewModel<MovieDetailsState, MovieDetailsEvent, MovieDetailsEffect>(MovieDetailsState()) {
 
     override fun onEvent(event: MovieDetailsEvent) {
@@ -29,7 +31,7 @@ class MovieDetailsViewModel(
                     is ApiResult.Success -> setState {
                         copy(
                             isLoading = false,
-                            movie = result.data
+                            movie = mapper.map(result.data)
                         )
                     }
 
