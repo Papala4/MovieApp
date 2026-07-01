@@ -46,6 +46,7 @@ fun MovieHeroSection(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxSize()
+                .height(Dimensions.dimension400)
         )
 
         Box(
