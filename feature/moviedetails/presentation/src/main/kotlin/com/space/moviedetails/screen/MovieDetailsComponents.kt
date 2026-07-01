@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.space.moviedetails.presentation.R
 import com.space.ui.component.common.BaseIcon
@@ -30,8 +30,6 @@ import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.Radius
 import com.space.ui.theme.Spacing
 import com.space.ui.theme.TextSizing
-
-private val HeroImageHeight = 400.dp
 
 @Composable
 fun MovieHeroSection(
@@ -47,14 +45,13 @@ fun MovieHeroSection(
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .fillMaxWidth()
-                .height(HeroImageHeight)
+                .fillMaxSize()
         )
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(HeroImageHeight)
+                .height(Dimensions.dimension400)
         )
 
         Button(
@@ -123,7 +120,7 @@ fun MovieInfoRow(
     ) {
         InfoChip(
             icon = R.drawable.star_logo,
-            text = rating.toString()
+            text = rating
         )
 
         if (!genre.isNullOrBlank()) {
