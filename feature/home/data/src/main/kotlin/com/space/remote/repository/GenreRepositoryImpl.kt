@@ -17,7 +17,7 @@ class GenreRepositoryImpl(
         dataSource.getGenres().map { result ->
             when (result) {
                 is ApiResult.Success -> ApiResult.Success(result.data.map(mapper::map))
-                is ApiResult.Error -> ApiResult.Error(result.message)
+                is ApiResult.Error -> ApiResult.Error(result.exception)
                 ApiResult.Loading -> ApiResult.Loading
             }
         }

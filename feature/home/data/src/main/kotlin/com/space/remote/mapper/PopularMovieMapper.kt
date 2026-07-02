@@ -1,6 +1,7 @@
 package com.space.remote.mapper
 
 import com.space.model.MovieResponse
+import com.space.network.BuildConfig.IMAGE_BASE_URL
 import com.space.remote.dto.MovieDto
 
 class PopularMovieMapper {
@@ -11,8 +12,4 @@ class PopularMovieMapper {
         releaseYear = dto.releaseDate.take(4),
         genreIds = dto.genreIds
     )
-
-    companion object {
-        private const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500"
-    }
 }
