@@ -92,9 +92,9 @@ private fun MovieDetailsContent(
                     )
                 }
 
-                state.error != null -> {
+                state.errorRes != null -> {
                     Text(
-                        text = state.error,
+                        text = stringResource(id = state.errorRes),
                         style = MovieTheme.typography.bodyMedium,
                         color = colors.error,
                         textAlign = TextAlign.Center,

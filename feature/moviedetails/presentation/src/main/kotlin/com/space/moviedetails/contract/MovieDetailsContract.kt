@@ -1,5 +1,6 @@
 package com.space.moviedetails.contract
 
+import androidx.annotation.StringRes
 import com.space.moviedetails.model.MovieDetailsUi
 import com.space.presentation.base.UIEffect
 import com.space.presentation.base.UIEvent
@@ -7,7 +8,7 @@ import com.space.presentation.base.UIEvent
 data class MovieDetailsState(
     val isLoading: Boolean = false,
     val movie: MovieDetailsUi? = null,
-    val error: String? = null
+    @param:StringRes val errorRes: Int? = null
 )
 
 sealed interface MovieDetailsEvent : UIEvent {

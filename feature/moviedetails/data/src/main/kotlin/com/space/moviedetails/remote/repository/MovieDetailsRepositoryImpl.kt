@@ -17,7 +17,7 @@ class MovieDetailsRepositoryImpl(
         dataSource.getMovieDetails(movieId).map { result ->
             when (result) {
                 is ApiResult.Success -> ApiResult.Success(mapper.map(result.data))
-                is ApiResult.Error -> ApiResult.Error(result.message)
+                is ApiResult.Error -> ApiResult.Error(result.exception)
                 ApiResult.Loading -> ApiResult.Loading
             }
         }
