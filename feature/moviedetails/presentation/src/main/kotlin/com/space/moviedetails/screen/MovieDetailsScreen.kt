@@ -92,9 +92,9 @@ private fun MovieDetailsContent(
                     )
                 }
 
-                state.error != null -> {
+                state.errorRes != null -> {
                     Text(
-                        text = state.error,
+                        text = stringResource(id = state.errorRes),
                         style = MovieTheme.typography.bodyMedium,
                         color = colors.error,
                         textAlign = TextAlign.Center,
@@ -150,8 +150,8 @@ private fun MovieBodyContent(
 
 private val previewMovie = MovieDetailsUi(
     id = 1,
-    title = "Atonement",
-    overview = "Thirteen-year-old fledgling writer Briony Tallis irrevocably changes the course of several lives when she accuses her older sister's lover of a crime he did not commit.",
+    title = "MovieTest1",
+    overview = "Details",
     posterPath = "",
     genre = "Romance",
     runtime = "",

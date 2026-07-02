@@ -1,8 +1,10 @@
 package com.space.network.exception
 
+import androidx.annotation.StringRes
+
 class BaseException(
     val code: ErrorCode,
     val httpStatus: Int? = null,
-    message: String,
+    @param:StringRes val messageRes: Int,
     cause: Throwable? = null
-) : Exception(message, cause)
+) : Exception(cause)

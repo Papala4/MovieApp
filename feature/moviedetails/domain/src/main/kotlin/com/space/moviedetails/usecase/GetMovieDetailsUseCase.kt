@@ -9,5 +9,3 @@ class GetMovieDetailsUseCase(private val repository: MovieDetailsRepository) {
     operator fun invoke(movieId: Int): Flow<ApiResult<MovieDetailsResponse>> =
         repository.getMovieDetails(movieId)
 }
-
-//baseusecase

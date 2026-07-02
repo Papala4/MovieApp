@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
             MovieAppTheme {
                 Scaffold { innerPadding ->
                     MovieDetailsScreen(
-                        movieId = 27205,
+                        movieId = 4347,
                         modifier = Modifier.padding(paddingValues = innerPadding)
                     )
                 }
