@@ -70,7 +70,7 @@ fun CategoryControl(
                     .then(
                         if (!isSelected) Modifier.border(
                             width = Dimensions.dimension01,
-                            color = colors.textPrimary,
+                            color = colors.border,
                             shape = Radius.radius30
                         ) else Modifier
                     )

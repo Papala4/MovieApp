@@ -7,19 +7,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.space.moviedetails.contract.MovieDetailsEffect
 import com.space.moviedetails.contract.MovieDetailsEvent
@@ -28,6 +23,8 @@ import com.space.moviedetails.model.MovieDetailsUi
 import com.space.moviedetails.presentation.R
 import com.space.moviedetails.vm.MovieDetailsViewModel
 import com.space.ui.component.navigation_buttons.Header
+import com.space.ui.component.state.ErrorState
+import com.space.ui.component.state.LoadingState
 import com.space.ui.theme.MovieAppTheme
 import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.Spacing
@@ -56,6 +53,7 @@ fun MovieDetailsScreen(
 
     MovieDetailsContent(
         state = state,
+        movieId = movieId,
         modifier = modifier,
         onEvent = vm::onEvent
     )
@@ -64,6 +62,7 @@ fun MovieDetailsScreen(
 @Composable
 private fun MovieDetailsContent(
     state: MovieDetailsState,
+    movieId: Int,
     modifier: Modifier = Modifier,
     onEvent: (MovieDetailsEvent) -> Unit
 ) {
@@ -86,21 +85,12 @@ private fun MovieDetailsContent(
         ) {
             when {
                 state.isLoading -> {
-                    CircularProgressIndicator(
-                        color = colors.primary,
-                        modifier = Modifier.align(Alignment.Center)
-                    )
+                    LoadingState()
                 }
 
                 state.error != null -> {
-                    Text(
-                        text = state.error,
-                        style = MovieTheme.typography.bodyMedium,
-                        color = colors.error,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .padding(Spacing.spacing16)
+                    ErrorState(
+                        onRefresh = { onEvent(MovieDetailsEvent.LoadDetails(movieId)) }
                     )
                 }
 
@@ -166,6 +156,7 @@ private fun MovieDetailsContentPreview() {
     MovieAppTheme {
         MovieDetailsContent(
             state = MovieDetailsState(movie = previewMovie),
+            movieId = previewMovie.id,
             onEvent = {}
         )
     }

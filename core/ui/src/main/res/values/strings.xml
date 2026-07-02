@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search_placeholder">Search</string>
+    <string name="error_state_title">Data can\'t be loaded</string>
+    <string name="error_state_description">internet connection or some other server error</string>
+    <string name="error_state_refresh">Refresh</string>
 </resources>
