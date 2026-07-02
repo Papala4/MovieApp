@@ -1,6 +1,9 @@
 package com.space.network.handler
 
+import com.space.network.R
 import com.space.network.api_result.ApiResult
+import com.space.network.exception.BaseException
+import com.space.network.exception.ErrorCode
 import com.space.network.exception.ExceptionHandler
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,10 +20,17 @@ class ResponseHandlerImpl(
             if (response.isSuccessful && body != null) {
                 emit(ApiResult.Success(body))
             } else {
-                emit(ApiResult.Error("Empty response"))
+                emit(
+                    ApiResult.Error(
+                        BaseException(
+                            code = ErrorCode.UNKNOWN,
+                            messageRes = R.string.empty_response_message
+                        )
+                    )
+                )
             }
         } catch (e: Exception) {
-            emit(ApiResult.Error(exceptionHandler.getExceptionByThrowable(e).message))
+            emit(ApiResult.Error(exceptionHandler.getExceptionByThrowable(e)))
         }
     }
 }
