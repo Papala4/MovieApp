@@ -2,6 +2,8 @@ package com.space.movieapp
 
 import android.app.Application
 import com.space.di.homeDataModule
+import com.space.home.di.homeUseCaseModule
+import com.space.home.di.homeVmModule
 import com.space.movieapp.di.appModule
 import com.space.moviedetails.di.movieDetailsDataModule
 import com.space.moviedetails.di.useCaseModule
@@ -20,6 +22,8 @@ class MovieApp : Application() {
                 networkModule,
                 movieDetailsDataModule,
                 homeDataModule,
+                homeUseCaseModule,
+                homeVmModule,
                 useCaseModule,
                 vmModule
             )

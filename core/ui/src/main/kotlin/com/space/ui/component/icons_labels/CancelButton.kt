@@ -1,25 +1,30 @@
 package com.space.ui.component.icons_labels
 
-import androidx.compose.foundation.layout.size
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.space.ui.R
-import com.space.ui.component.common.BaseIcon
+import com.space.ui.theme.MovieTheme
 
 @Composable
 fun CancelButton(
     onClick: () -> Unit,
     enabled: Boolean = true
 ) {
-    IconButton(
+    TextButton(
         onClick = onClick,
-        modifier = Modifier.size(36.dp),
-        enabled = enabled
+        enabled = enabled,
+        colors = ButtonDefaults.textButtonColors(
+            contentColor = MovieTheme.colors.textSecondary
+        )
     ) {
-        BaseIcon(icon = R.drawable.cancel_btn)
+        Text(
+            text = stringResource(R.string.search_cancel),
+            style = MovieTheme.typography.bodyMedium
+        )
     }
 }
 

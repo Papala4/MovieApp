@@ -28,5 +28,7 @@ object Dimensions {
     val dimension164 = 164.dp
     val dimension220 = 220.dp
     val dimension226 = 226.dp
+    val dimension250 = 250.dp
     val dimension400 = 400.dp
+
 }

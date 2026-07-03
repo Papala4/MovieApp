@@ -1,0 +1,123 @@
+package com.space.home.screen
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.space.home.contract.HomeEffect
+import com.space.home.contract.HomeEvent
+import com.space.home.contract.HomeState
+import com.space.home.presentation.R
+import com.space.home.vm.HomeViewModel
+import com.space.ui.component.cards.Movie
+import com.space.ui.component.search_filter.SearchBar
+import com.space.ui.component.state.ErrorState
+import com.space.ui.theme.MovieTheme
+import com.space.ui.theme.Spacing
+import org.koin.androidx.compose.koinViewModel
+
+@Composable
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    onNavigateToFavourites: () -> Unit = {}
+) {
+    val vm: HomeViewModel = koinViewModel()
+    val state by vm.state.collectAsState()
+    val movies = vm.movies.collectAsLazyPagingItems()
+
+    LaunchedEffect(Unit) {
+        vm.effect.collect { effect ->
+            when (effect) {
+                HomeEffect.NavigateToFavourites -> onNavigateToFavourites()
+            }
+        }
+    }
+
+    HomeContent(
+        state = state,
+        movies = movies,
+        modifier = modifier,
+        onEvent = vm::onEvent
+    )
+}
+
+@Composable
+private fun HomeContent(
+    state: HomeState,
+    movies: LazyPagingItems<Movie>,
+    modifier: Modifier = Modifier,
+    onEvent: (HomeEvent) -> Unit
+) {
+    val colors = MovieTheme.colors
+
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(colors.background)
+    ) {
+        SearchBar(
+            query = state.query,
+            onQueryChange = { onEvent(HomeEvent.QueryChanged(it)) },
+            isFilterSelected = state.isFilterSelected,
+            onFilterToggle = { onEvent(HomeEvent.FilterToggled(it)) },
+            categories = state.categories,
+            selectedCategory = state.selectedCategory,
+            onCategoryClick = { onEvent(HomeEvent.CategorySelected(it)) },
+            modifier = Modifier.padding(
+                start = Spacing.spacing16,
+                end = Spacing.spacing16,
+                top = Spacing.spacing16
+            )
+        )
+
+        Spacer(modifier = Modifier.height(Spacing.spacing16))
+
+        Text(
+            text = stringResource(R.string.home_movies_title),
+            style = MovieTheme.typography.titleSmall,
+            color = colors.primary,
+            modifier = Modifier.padding(horizontal = Spacing.spacing16)
+        )
+
+        Spacer(modifier = Modifier.height(Spacing.spacing4))
+
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+        ) {
+            val refreshState = movies.loadState.refresh
+            when {
+                state.isLoading || refreshState is LoadState.Loading -> MoviesGridShimmer()
+
+                state.error != null || refreshState is LoadState.Error -> ErrorState(
+                    onRefresh = {
+                        onEvent(HomeEvent.Refresh)
+                        movies.retry()
+                    }
+                )
+
+                else -> MoviesGrid(movies = movies, onEvent = onEvent)
+            }
+        }
+
+    }
+}
+
+//TODO{Category agar ikos defaultad monishnuli}
+//TODO{Filteris akecvisas dafiltruli datovos}
+//TODO{icon x for search}

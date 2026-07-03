@@ -11,10 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,13 +44,13 @@ import com.space.ui.theme.Spacing
 @Composable
 fun SearchBar(
     query: String,
-    onQueryChange: (String) -> Unit,
     isFilterSelected: Boolean,
-    onFilterToggle: (Boolean) -> Unit,
     categories: List<String>,
     selectedCategory: String,
+    modifier: Modifier = Modifier,
+    onQueryChange: (String) -> Unit,
     onCategoryClick: (String) -> Unit,
-    modifier: Modifier = Modifier
+    onFilterToggle: (Boolean) -> Unit
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -91,31 +87,6 @@ fun SearchBar(
     }
 }
 
-private val previewCategories =
-    listOf("Comedy", "Drama", "Romance", "Horror", "Science Fiction")
-
-@Preview
-@Composable
-private fun PreviewSearchBar() {
-    MovieAppTheme {
-        var query by remember { mutableStateOf("") }
-        var isFilterSelected by remember { mutableStateOf(false) }
-        var selectedCategory by remember { mutableStateOf(previewCategories.first()) }
-
-        SearchBar(
-            query = query,
-            onQueryChange = { query = it },
-            isFilterSelected = isFilterSelected,
-            onFilterToggle = { isFilterSelected = it },
-            categories = previewCategories,
-            selectedCategory = selectedCategory,
-            onCategoryClick = { selectedCategory = it },
-            modifier = Modifier
-                .background(colors.background)
-                .padding(Spacing.spacing16)
-        )
-    }
-}
 
 @Preview
 @Composable
@@ -126,27 +97,8 @@ private fun PreviewSearchBarWithCategories() {
             onQueryChange = {},
             isFilterSelected = true,
             onFilterToggle = {},
-            categories = previewCategories,
-            selectedCategory = previewCategories.first(),
-            onCategoryClick = {},
-            modifier = Modifier
-                .background(colors.background)
-                .padding(Spacing.spacing16)
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun PreviewSearchBarTyping() {
-    MovieAppTheme {
-        SearchBar(
-            query = "Interstellar",
-            onQueryChange = {},
-            isFilterSelected = false,
-            onFilterToggle = {},
-            categories = previewCategories,
-            selectedCategory = previewCategories.first(),
+            categories = listOf("Comedy", "Drama", "Romance", "Horror", "Science Fiction"),
+            selectedCategory = "Comedy",
             onCategoryClick = {},
             modifier = Modifier
                 .background(colors.background)

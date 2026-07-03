@@ -32,7 +32,7 @@ import com.space.ui.theme.Spacing
 import com.space.ui.theme.TextSizing
 
 @Composable
-fun MovieHeroSection(
+fun MoviePosterSection(
     posterPath: String,
     onTrailerClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -43,7 +43,7 @@ fun MovieHeroSection(
         AsyncImage(
             model = posterPath,
             contentDescription = null,
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.FillBounds,
             modifier = Modifier
                 .fillMaxSize()
                 .height(Dimensions.dimension400)
