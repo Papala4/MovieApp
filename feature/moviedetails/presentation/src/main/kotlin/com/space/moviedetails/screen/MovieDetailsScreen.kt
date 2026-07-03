@@ -88,7 +88,7 @@ private fun MovieDetailsContent(
                     LoadingState()
                 }
 
-                state.error != null -> {
+                state.errorRes != null -> {
                     ErrorState(
                         onRefresh = { onEvent(MovieDetailsEvent.LoadDetails(movieId)) }
                     )

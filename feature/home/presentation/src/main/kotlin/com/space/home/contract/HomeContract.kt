@@ -1,5 +1,6 @@
 package com.space.home.contract
 
+import androidx.annotation.StringRes
 import com.space.presentation.base.UIEffect
 import com.space.presentation.base.UIEvent
 
@@ -9,7 +10,7 @@ data class HomeState(
     val categories: List<String> = emptyList(),
     val selectedCategory: String = "",
     val isLoading: Boolean = false,
-    val error: String? = null
+    @param:StringRes val error: Int? = null
 )
 
 sealed interface HomeEvent : UIEvent {

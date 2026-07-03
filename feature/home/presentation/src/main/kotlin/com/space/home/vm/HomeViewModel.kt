@@ -123,7 +123,12 @@ class HomeViewModel(
                 )
             }
 
-            is ApiResult.Error -> setState { copy(isLoading = false, error = result.message) }
+            is ApiResult.Error -> setState {
+                copy(
+                    isLoading = false,
+                    error = result.exception.messageRes
+                )
+            }
         }
     }
 
