@@ -20,11 +20,13 @@ android {
             buildConfigField("String", "BASE_URL", "\"${localProperties["BASE_URL"]}\"")
             buildConfigField("String", "IMAGE_BASE_URL", "\"${localProperties["IMAGE_BASE_URL"]}\"")
             buildConfigField("String", "AUTH_TOKEN", "\"${localProperties["AUTH_TOKEN"]}\"")
+            buildConfigField("String", "IMAGE_BASE_URL", "\"${localProperties["IMAGE_BASE_URL"]}\"")
         }
         release {
             buildConfigField("String", "BASE_URL", "\"${localProperties["BASE_URL"]}\"")
             buildConfigField("String", "IMAGE_BASE_URL", "\"${localProperties["IMAGE_BASE_URL"]}\"")
             buildConfigField("String", "AUTH_TOKEN", "\"${localProperties["AUTH_TOKEN"]}\"")
+            buildConfigField("String", "IMAGE_BASE_URL", "\"${localProperties["IMAGE_BASE_URL"]}\"")
         }
     }
 }

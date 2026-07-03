@@ -2,18 +2,19 @@ package com.space.remote.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.space.remote.api.PopularMovieApi
 import com.space.remote.dto.MovieDto
+import com.space.remote.dto.PopularMovieDto
 import retrofit2.HttpException
+import retrofit2.Response
 
-class PopularMoviesPagingSource(
-    private val api: PopularMovieApi
+class MoviesPagingSource(
+    private val loadPage: suspend (page: Int) -> Response<PopularMovieDto>
 ) : PagingSource<Int, MovieDto>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieDto> {
         val page = params.key ?: STARTING_PAGE
         return try {
-            val response = api.getPopularMovies(page)
+            val response = loadPage(page)
             val body = response.body()
             if (response.isSuccessful && body != null) {
                 LoadResult.Page(

@@ -27,7 +27,7 @@ class MovieDetailsViewModel(
         viewModelScope.launch {
             getMovieDetailsUseCase(movieId).collect { result ->
                 when (result) {
-                    ApiResult.Loading -> setState { copy(isLoading = true, error = null) }
+                    ApiResult.Loading -> setState { copy(isLoading = true, errorRes = null) }
                     is ApiResult.Success -> setState {
                         copy(
                             isLoading = false,
@@ -38,7 +38,7 @@ class MovieDetailsViewModel(
                     is ApiResult.Error -> setState {
                         copy(
                             isLoading = false,
-                            error = result.message
+                            errorRes = result.exception.messageRes
                         )
                     }
                 }

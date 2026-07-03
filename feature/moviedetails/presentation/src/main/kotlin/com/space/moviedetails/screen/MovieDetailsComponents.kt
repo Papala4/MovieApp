@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -72,6 +73,12 @@ fun MoviePosterSection(
                 color = colors.onPrimary,
                 fontWeight = FontWeight.SemiBold,
                 fontSize = TextSizing.size14
+            )
+
+            Spacer(modifier = Modifier.padding(Spacing.spacing4))
+
+            BaseIcon(
+                icon = R.drawable.trailer_button
             )
         }
     }

@@ -16,5 +16,3 @@ class MovieDetailsMapper {
         voteAverage = dto.voteAverage
     )
 }
-
-//basemapper
