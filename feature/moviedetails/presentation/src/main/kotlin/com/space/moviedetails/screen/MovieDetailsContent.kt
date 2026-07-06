@@ -8,9 +8,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
@@ -33,7 +32,7 @@ import com.space.ui.theme.Spacing
 import com.space.ui.theme.TextSizing
 
 @Composable
-fun MovieHeroSection(
+fun MoviePosterSection(
     posterPath: String,
     onTrailerClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -46,14 +45,8 @@ fun MovieHeroSection(
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .fillMaxSize()
-                .height(Dimensions.dimension400)
-        )
-
-        Box(
-            modifier = Modifier
                 .fillMaxWidth()
-                .height(Dimensions.dimension400)
+                .aspectRatio(0.76f)
         )
 
         Button(

@@ -5,9 +5,11 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,16 +26,24 @@ import com.space.ui.theme.TextSizing
 /**
  * [NoInternetBanner] – app-level banner shown while the device has no internet connection.
  *
- * Designed to sit at the very top of the screen, above the navigation host:
- * its background extends behind the status bar in edge-to-edge mode.
+ * Works at either screen edge in edge-to-edge mode: the background extends behind the
+ * system bar given via [windowInsets], while the text stays clear of it.
  *
  * @param visible Whether the banner is shown; changes are animated.
  * @param modifier Optional external modifier for sizing / spacing.
+ * @param message Text shown inside the banner.
+ * @param windowInsets System bar insets the banner is placed against:
+ * [WindowInsets.Companion.statusBars] for top placement,
+ * [WindowInsets.Companion.navigationBars] for bottom placement,
+ * or `WindowInsets(0)` when it sits next to a component that already handles insets,
+ * such as a bottom navigation bar.
  */
 @Composable
 fun NoInternetBanner(
     visible: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    message: String = stringResource(R.string.no_internet_connection),
+    windowInsets: WindowInsets = WindowInsets.statusBars
 ) {
     AnimatedVisibility(
         visible = visible,
@@ -44,13 +54,13 @@ fun NoInternetBanner(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(colors.error)
-                .statusBarsPadding()
+                .background(colors.surface)
+                .windowInsetsPadding(windowInsets)
                 .padding(vertical = Spacing.spacing8),
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = stringResource(R.string.no_internet_connection),
+                text = message,
                 color = colors.textPrimary,
                 fontSize = TextSizing.size12,
                 fontWeight = FontWeight.SemiBold
