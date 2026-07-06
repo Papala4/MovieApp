@@ -58,10 +58,10 @@ import com.space.ui.theme.TextSizing
 @Composable
 fun Search(
     query: String,
-    onQueryChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     placeholder: String = stringResource(R.string.search_placeholder),
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    onQueryChange: (String) -> Unit
 ) {
     val focusRequester = remember { FocusRequester() }
     val colors = MovieTheme.colors
