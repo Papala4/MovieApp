@@ -5,10 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.space.ui.component.SearchBar
 import com.space.ui.theme.MovieAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,13 +22,8 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
-            val isLoading by vm.isLoading.collectAsStateWithLifecycle()
-
             MovieAppTheme {
-                if (!isLoading) {
-                    SearchBar("",
-                        {})
-                }
+
             }
         }
     }
