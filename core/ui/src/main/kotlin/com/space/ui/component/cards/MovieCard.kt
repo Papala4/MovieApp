@@ -32,9 +32,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.space.ui.component.common.shimmerEffect
 import com.space.ui.component.icons_labels.FavouriteButton
 import com.space.ui.theme.Dimensions
 import com.space.ui.theme.MovieAppTheme
+import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.MovieTheme.colors
 import com.space.ui.theme.Radius
 import com.space.ui.theme.Spacing
@@ -55,7 +57,8 @@ data class Movie(
  * @param movie The movie data to display.
  * @param onFavoriteToggle Called when the user taps the heart icon.
  * @param modifier Optional external modifier for sizing / spacing.
- * @param placeholder Painter shown while the poster loads or fails to load.
+ * @param placeholder Painter shown when the poster is missing or fails to load;
+ * while the poster is loading a shimmer is drawn instead.
  */
 
 @Composable
@@ -79,17 +82,30 @@ fun MovieCard(
                     .fillMaxWidth()
                     .height(Spacing.spacing250)
             ) {
+                var isPosterLoading by remember { mutableStateOf(false) }
+
                 AsyncImage(
-                    model = movie.posterUrl,
+                    model = movie.posterUrl.takeIf { it.isNotBlank() },
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
-                    placeholder = placeholder,
                     error = placeholder,
+                    fallback = placeholder,
+                    onLoading = { isPosterLoading = true },
+                    onSuccess = { isPosterLoading = false },
+                    onError = { isPosterLoading = false },
                     modifier = Modifier
                         .fillMaxSize()
-                        .clip(Radius.radius16),
-
+                        .clip(Radius.radius16)
                 )
+
+                if (isPosterLoading) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(Radius.radius16)
+                            .shimmerEffect()
+                    )
+                }
 
                 GenreBadge(
                     genre = movie.genre,
@@ -132,6 +148,8 @@ fun MovieCard(
 
 @Composable
 private fun GenreBadge(genre: String, modifier: Modifier = Modifier) {
+    val typography = MovieTheme.typography
+
     Box(
         modifier = modifier
             .background(color = colors.primary, shape = Radius.radius24)
@@ -140,8 +158,7 @@ private fun GenreBadge(genre: String, modifier: Modifier = Modifier) {
         Text(
             text = genre,
             color = colors.surface,
-            fontSize = TextSizing.size12,
-            fontWeight = FontWeight.Bold
+            style = typography.bodyMedium
         )
     }
 }

@@ -30,7 +30,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 
 class HomeViewModel(
-    private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
+    getPopularMoviesUseCase: GetPopularMoviesUseCase,
     private val discoverMoviesUseCase: DiscoverMoviesUseCase,
     private val searchMoviesUseCase: SearchMoviesUseCase,
     getGenresUseCase: GetGenresUseCase,
@@ -39,6 +39,9 @@ class HomeViewModel(
 
     private val refreshTrigger = MutableStateFlow(0)
     private val favouriteIds = MutableStateFlow<Set<Int>>(emptySet())
+
+    private val popularMovies: Flow<PagingData<MovieResponse>> =
+        getPopularMoviesUseCase().cachedIn(viewModelScope)
 
     private val loadedGenres: Flow<List<GenreResponse>> = refreshTrigger
         .flatMapLatest { getGenresUseCase() }
@@ -58,7 +61,7 @@ class HomeViewModel(
         .debounce { query -> if (query.isEmpty()) 0L else 300L }
 
     private val categoryFilter: Flow<String> = state
-        .map { if (it.isFilterSelected) it.selectedCategory else "" }
+        .map { it.selectedCategory }
         .distinctUntilChanged()
 
     private val filters: Flow<MovieFilters> = combine(
@@ -91,7 +94,7 @@ class HomeViewModel(
         return when {
             movieFilters.query.isNotBlank() -> searchMoviesUseCase(movieFilters.query.trim())
             genreId != null -> discoverMoviesUseCase(genreId)
-            else -> getPopularMoviesUseCase()
+            else -> popularMovies
         }
     }
 
@@ -99,7 +102,11 @@ class HomeViewModel(
         when (event) {
             is HomeEvent.QueryChanged -> setState { copy(query = event.query) }
             is HomeEvent.FilterToggled -> setState { copy(isFilterSelected = event.isSelected) }
-            is HomeEvent.CategorySelected -> setState { copy(selectedCategory = event.category) }
+            is HomeEvent.CategorySelected -> setState {
+                copy(
+                    selectedCategory = if (selectedCategory == event.category) "" else event.category
+                )
+            }
             is HomeEvent.FavouriteToggled -> favouriteIds.update { ids ->
                 if (event.movieId in ids) ids - event.movieId else ids + event.movieId
             }
@@ -116,10 +123,7 @@ class HomeViewModel(
                 copy(
                     isLoading = false,
                     error = null,
-                    categories = result.data.map { it.name },
-                    selectedCategory = selectedCategory.ifEmpty {
-                        result.data.firstOrNull()?.name.orEmpty()
-                    }
+                    categories = result.data.map { it.name }
                 )
             }
 

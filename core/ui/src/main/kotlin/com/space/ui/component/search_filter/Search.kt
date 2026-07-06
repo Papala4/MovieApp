@@ -46,12 +46,12 @@ import com.space.ui.theme.TextSizing
  * Features a search icon on the left and a text input on the right.
  * - Tapping the icon toggles focus and keyboard visibility.
  * - Clearing all text automatically releases focus and hides the keyboard.
- * - Placeholder is hidden when the field is focused.
+ * - Placeholder stays visible until the user types something.
  *
  * @param query The current search text (controlled from outside).
  * @param onQueryChange Called on every keystroke with the updated text.
  * @param modifier Optional external modifier for positioning or sizing.
- * @param placeholder Hint text shown when query is empty and field is unfocused. Defaults to "Search".
+ * @param placeholder Hint text shown while the query is empty. Defaults to "Search".
  * @param enabled Whether the field accepts input. Defaults to true.
 */
 
@@ -121,7 +121,7 @@ fun Search(
                         }
                 )
 
-                if (query.isEmpty() && !isFocused) {
+                if (query.isEmpty()) {
                     Text(
                         text = placeholder,
                         color = colors.border,
@@ -129,6 +129,19 @@ fun Search(
                         style = MovieTheme.typography.bodyMedium
                     )
                 }
+            }
+
+            if (query.isNotEmpty()) {
+                Spacer(modifier = Modifier.width(Spacing.spacing6))
+
+                Icon(
+                    painter = painterResource(R.drawable.clear_button),
+                    contentDescription = null,
+                    tint = Color.Unspecified,
+                    modifier = Modifier
+                        .size(Dimensions.dimension14)
+                        .clickable { onQueryChange("") }
+                )
             }
         }
     }

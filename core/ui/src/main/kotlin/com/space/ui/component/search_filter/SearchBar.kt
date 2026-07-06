@@ -13,6 +13,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.tooling.preview.Preview
 import com.space.ui.component.icons_labels.CancelButton
 import com.space.ui.component.icons_labels.FilterButton
@@ -26,8 +28,9 @@ import com.space.ui.theme.Spacing
  *
  * - While the query is empty the filter toggle is shown next to the field.
  * - As soon as the user types something the filter toggle is replaced by a
- *   cancel button that clears the text (via [onQueryChange] with an empty string),
- *   so the query state stays hoisted at the caller.
+ *   cancel button that clears the text (via [onQueryChange] with an empty string)
+ *   and releases focus / hides the keyboard, so the query state stays hoisted
+ *   at the caller.
  * - When the filter is selected, a horizontally scrollable [CategoryControl]
  *   appears below the search field.
  *
@@ -52,6 +55,9 @@ fun SearchBar(
     onCategoryClick: (String) -> Unit,
     onFilterToggle: (Boolean) -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     Column(modifier = modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Search(
@@ -69,7 +75,11 @@ fun SearchBar(
                 )
             } else {
                 CancelButton(
-                    onClick = { onQueryChange("") }
+                    onClick = {
+                        onQueryChange("")
+                        focusManager.clearFocus()
+                        keyboardController?.hide()
+                    }
                 )
             }
         }

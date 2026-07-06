@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.space.ui.theme.Dimensions
 import com.space.ui.theme.MovieTheme
@@ -46,12 +45,7 @@ fun CategoryControl(
     val colors = MovieTheme.colors
 
     Row(
-        modifier = modifier
-            .background(
-                color = Color.Transparent,
-                shape = Radius.radius30
-            )
-            .padding(Spacing.spacing4),
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(Spacing.spacing8)
     ) {
         items.forEach { item ->
@@ -61,7 +55,7 @@ fun CategoryControl(
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .height(Spacing.spacing22)
+                    .height(Spacing.spacing26)
                     .wrapContentWidth()
                     .clip(Radius.radius30)
                     .background(
@@ -80,7 +74,7 @@ fun CategoryControl(
 
             Text(
                     text = item,
-                    style = MovieTheme.typography.bodySmall,
+                style = MovieTheme.typography.bodyMedium,
                     color = if (isSelected) colors.onPrimary else colors.textPrimary
                 )
             }

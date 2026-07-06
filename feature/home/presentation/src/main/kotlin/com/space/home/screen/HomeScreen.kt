@@ -1,6 +1,7 @@
 package com.space.home.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +15,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
@@ -63,20 +66,29 @@ private fun HomeContent(
     onEvent: (HomeEvent) -> Unit
 ) {
     val colors = MovieTheme.colors
+    val allCategory = stringResource(R.string.home_category_all)
+    val focusManager = LocalFocusManager.current
 
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(colors.background)
+            .pointerInput(Unit) {
+                detectTapGestures(onTap = { focusManager.clearFocus() })
+            }
     ) {
         SearchBar(
             query = state.query,
             onQueryChange = { onEvent(HomeEvent.QueryChanged(it)) },
             isFilterSelected = state.isFilterSelected,
             onFilterToggle = { onEvent(HomeEvent.FilterToggled(it)) },
-            categories = state.categories,
-            selectedCategory = state.selectedCategory,
-            onCategoryClick = { onEvent(HomeEvent.CategorySelected(it)) },
+            categories = listOf(allCategory) + state.categories,
+            selectedCategory = state.selectedCategory.ifEmpty { allCategory },
+            onCategoryClick = { category ->
+                onEvent(
+                    HomeEvent.CategorySelected(if (category == allCategory) "" else category)
+                )
+            },
             modifier = Modifier.padding(
                 start = Spacing.spacing16,
                 end = Spacing.spacing16,
@@ -117,7 +129,3 @@ private fun HomeContent(
 
     }
 }
-
-//TODO{Category agar ikos defaultad monishnuli}
-//TODO{Filteris akecvisas dafiltruli datovos}
-//TODO{icon x for search}
