@@ -9,8 +9,10 @@ android {
 
 dependencies{
     implementation(project(":core:ui"))
-    implementation(project(":feature:moviedetails:presentation")) //just for test
+    implementation(project(":core:network"))
+    implementation(project(":feature:moviedetails:presentation"))
     implementation(project(":feature:moviedetails:data"))
     implementation(project(":core:network"))
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.bundles.lifecycle)
 }

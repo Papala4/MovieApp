@@ -4,14 +4,19 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.space.ui.component.banners.NoInternetBanner
 import com.space.moviedetails.screen.MovieDetailsScreen
 import com.space.ui.theme.MovieAppTheme
+import com.space.ui.theme.MovieTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
@@ -31,11 +36,22 @@ class MainActivity : ComponentActivity() {
             val isLoading by vm.isLoading.collectAsStateWithLifecycle()
 
             MovieAppTheme {
-                Scaffold { innerPadding ->
-                    MovieDetailsScreen(
-                        movieId = 4347,
-                        modifier = Modifier.padding(paddingValues = innerPadding)
-                    )
+                val isOnline by vm.isOnline.collectAsStateWithLifecycle()
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(MovieTheme.colors.background)
+                ) {
+                    NoInternetBanner(visible = !isOnline)
+
+                    Scaffold { innerPadding ->
+                        MovieDetailsScreen(
+                            movieId = 4347,
+                            modifier = Modifier.padding(paddingValues = innerPadding)
+                        )
+                    }
+
                 }
             }
         }
