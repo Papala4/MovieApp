@@ -118,7 +118,7 @@ private fun MovieBodyContent(
     onEvent: (MovieDetailsEvent) -> Unit
 ) {
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-        MovieHeroSection(
+        MoviePosterSection(
             posterPath = movie.posterPath,
             onTrailerClick = {}
         )

@@ -46,13 +46,13 @@ fun CategoryControl(
     val colors = MovieTheme.colors
 
     Row(
-        horizontalArrangement = Arrangement.spacedBy(Spacing.spacing8),
         modifier = modifier
             .background(
                 color = Color.Transparent,
                 shape = Radius.radius30
             )
-            .padding(Spacing.spacing4)
+            .padding(Spacing.spacing4),
+        horizontalArrangement = Arrangement.spacedBy(Spacing.spacing8)
     ) {
         items.forEach { item ->
 

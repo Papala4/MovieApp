@@ -14,34 +14,39 @@ class NetworkObserverImpl(
     private val context: Context
 ) : NetworkObserver {
 
-    override fun observe(): Flow<NetworkStatus> = callbackFlow {
+    override val isOnline: Flow<Boolean> = callbackFlow {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
         val callback = object : ConnectivityManager.NetworkCallback() {
+            private val activeNetworks = mutableSetOf<Network>()
+
             override fun onAvailable(network: Network) {
-                trySend(NetworkStatus.Available)
+                activeNetworks += network
+                trySend(true)
             }
 
-            override fun onUnavailable() {
-                trySend(NetworkStatus.Unavailable)
+            override fun onLost(network: Network) {
+                activeNetworks -= network
+                trySend(activeNetworks.isNotEmpty())
             }
         }
 
         val request = NetworkRequest.Builder()
             .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            .addCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
             .build()
 
         connectivityManager.registerNetworkCallback(request, callback)
 
-        val isConnected = connectivityManager
-            .getNetworkCapabilities(connectivityManager.activeNetwork)
-            ?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
-
-        trySend(if (isConnected) NetworkStatus.Available else NetworkStatus.Unavailable)
+        trySend(connectivityManager.isCurrentlyConnected())
 
         awaitClose {
             connectivityManager.unregisterNetworkCallback(callback)
         }
     }.distinctUntilChanged()
+
+    private fun ConnectivityManager.isCurrentlyConnected(): Boolean =
+        getNetworkCapabilities(activeNetwork)
+            ?.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED) == true
 }
