@@ -1,5 +1,6 @@
 package com.space.moviedetails.mapper
 
+import com.space.domain.model.FavouriteMovie
 import com.space.moviedetails.model.MovieDetailsResponse
 import com.space.moviedetails.model.MovieDetailsUi
 import java.util.Locale
@@ -14,6 +15,14 @@ class MovieDetailsUiMapper {
         releaseYear = movieDetailsResponse.releaseYear,
         voteAverage = String.format(Locale.US, "%.1f", movieDetailsResponse.voteAverage),
         genre = movieDetailsResponse.genre,
+    )
+
+    fun mapToFavourite(movie: MovieDetailsUi) = FavouriteMovie(
+        id = movie.id,
+        title = movie.title,
+        posterUrl = movie.posterPath,
+        releaseYear = movie.releaseYear,
+        genre = movie.genre.orEmpty()
     )
 
     private fun formatRuntime(minutes: Int): String {

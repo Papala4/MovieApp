@@ -3,6 +3,7 @@ package com.space.home.contract
 import androidx.annotation.StringRes
 import com.space.presentation.base.UIEffect
 import com.space.presentation.base.UIEvent
+import com.space.ui.component.cards.Movie
 
 data class HomeState(
     val query: String = "",
@@ -17,7 +18,7 @@ sealed interface HomeEvent : UIEvent {
     data class QueryChanged(val query: String) : HomeEvent
     data class FilterToggled(val isSelected: Boolean) : HomeEvent
     data class CategorySelected(val category: String) : HomeEvent
-    data class FavouriteToggled(val movieId: Int) : HomeEvent
+    data class FavouriteToggled(val movie: Movie) : HomeEvent
     data object Refresh : HomeEvent
     data object FavouritesClicked : HomeEvent
 }

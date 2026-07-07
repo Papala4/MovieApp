@@ -4,6 +4,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
+import com.space.domain.usecase.AddFavouriteMovieUseCase
+import com.space.domain.usecase.GetFavouriteMoviesUseCase
+import com.space.domain.usecase.RemoveFavouriteMovieUseCase
 import com.space.home.contract.HomeEffect
 import com.space.home.contract.HomeEvent
 import com.space.home.contract.HomeState
@@ -28,17 +31,24 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class HomeViewModel(
     getPopularMoviesUseCase: GetPopularMoviesUseCase,
     private val discoverMoviesUseCase: DiscoverMoviesUseCase,
     private val searchMoviesUseCase: SearchMoviesUseCase,
     getGenresUseCase: GetGenresUseCase,
+    getFavouriteMoviesUseCase: GetFavouriteMoviesUseCase,
+    private val addFavouriteMovieUseCase: AddFavouriteMovieUseCase,
+    private val removeFavouriteMovieUseCase: RemoveFavouriteMovieUseCase,
     private val mapper: MovieUiMapper
 ) : BaseViewModel<HomeState, HomeEvent, HomeEffect>(HomeState()) {
 
     private val refreshTrigger = MutableStateFlow(0)
-    private val favouriteIds = MutableStateFlow<Set<Int>>(emptySet())
+
+    private val favouriteIds: Flow<Set<Int>> = getFavouriteMoviesUseCase()
+        .map { favourites -> favourites.map { it.id }.toSet() }
+        .distinctUntilChanged()
 
     private val popularMovies: Flow<PagingData<MovieResponse>> =
         getPopularMoviesUseCase().cachedIn(viewModelScope)
@@ -107,12 +117,20 @@ class HomeViewModel(
                     selectedCategory = if (selectedCategory == event.category) "" else event.category
                 )
             }
-            is HomeEvent.FavouriteToggled -> favouriteIds.update { ids ->
-                if (event.movieId in ids) ids - event.movieId else ids + event.movieId
-            }
+            is HomeEvent.FavouriteToggled -> toggleFavourite(event.movie)
 
             HomeEvent.Refresh -> refreshTrigger.update { it + 1 }
             HomeEvent.FavouritesClicked -> sendEffect(HomeEffect.NavigateToFavourites)
+        }
+    }
+
+    private fun toggleFavourite(movie: Movie) {
+        viewModelScope.launch {
+            if (movie.isFavorite) {
+                removeFavouriteMovieUseCase(movie.id)
+            } else {
+                addFavouriteMovieUseCase(mapper.mapToFavourite(movie))
+            }
         }
     }
 

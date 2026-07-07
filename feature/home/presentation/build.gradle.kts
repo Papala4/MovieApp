@@ -13,5 +13,6 @@ dependencies {
     implementation(libs.paging.compose)
     implementation(project(":core:network"))
     implementation(project(":core:presentation"))
+    implementation(project(":core:domain"))
     implementation(project(":feature:home:domain"))
 }

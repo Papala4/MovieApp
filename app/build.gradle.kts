@@ -10,6 +10,8 @@ android {
 dependencies{
     implementation(project(":core:ui"))
     implementation(project(":core:network"))
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
     implementation(project(":feature:moviedetails:presentation"))
     implementation(project(":feature:moviedetails:data"))
     implementation(project(":feature:home:data"))
