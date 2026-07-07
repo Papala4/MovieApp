@@ -1,7 +1,9 @@
 package com.space.movieapp.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
@@ -34,7 +36,9 @@ class MainActivity : ComponentActivity() {
             vm.isLoading.value
         }
 
-        enableEdgeToEdge()
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT),
+        )
         setContent {
             MovieAppTheme {
                 val isOnline by vm.isOnline.collectAsStateWithLifecycle()
