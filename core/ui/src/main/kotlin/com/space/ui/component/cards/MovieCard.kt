@@ -6,9 +6,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
@@ -27,7 +27,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,8 +38,8 @@ import com.space.ui.theme.MovieAppTheme
 import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.MovieTheme.colors
 import com.space.ui.theme.Radius
+import com.space.ui.theme.Size
 import com.space.ui.theme.Spacing
-import com.space.ui.theme.TextSizing
 
 data class Movie(
     val id: Int,
@@ -69,6 +68,8 @@ fun MovieCard(
     placeholder: Painter? = null
 ) {
 
+    val typography = MovieTheme.typography
+
     Card(
         modifier = modifier
             .width(Dimensions.dimension164),
@@ -80,7 +81,7 @@ fun MovieCard(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(Spacing.spacing250)
+                    .aspectRatio(163f / 226f)
             ) {
                 var isPosterLoading by remember { mutableStateOf(false) }
 
@@ -119,26 +120,26 @@ fun MovieCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = Spacing.spacing8),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.Top
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = movie.title,
+                        style = typography.bodyMedium,
                         color = colors.textPrimary,
-                        fontSize = TextSizing.size14,
-                        fontWeight = FontWeight.SemiBold,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
                         text = movie.year,
-                        color = colors.textSecondary,
-                        fontSize = TextSizing.size12
+                        style = typography.labelMedium,
+                        color = colors.surfaceVariant
                     )
                 }
 
                 FavouriteButton(
                     isFavourite = movie.isFavorite,
+                    size = Size.size26,
                     onToggleChange = { onFavoriteToggle(movie) }
                 )
             }
@@ -158,7 +159,7 @@ private fun GenreBadge(genre: String, modifier: Modifier = Modifier) {
         Text(
             text = genre,
             color = colors.surface,
-            style = typography.bodyMedium
+            style = typography.labelSmall
         )
     }
 }

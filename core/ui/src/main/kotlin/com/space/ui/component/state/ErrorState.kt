@@ -42,7 +42,7 @@ fun ErrorState(
 
         Text(
             text = stringResource(R.string.error_state_title),
-            style = typography.titleSmall,
+            style = typography.titleMedium,
             color = colors.textPrimary
         )
 

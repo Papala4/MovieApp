@@ -16,9 +16,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.space.moviedetails.screen.MovieDetailsScreen
-import com.space.ui.component.banners.NoInternetBanner
 import com.space.home.screen.HomeScreen
+import com.space.ui.component.banners.NoInternetBanner
 import com.space.ui.theme.MovieAppTheme
 import com.space.ui.theme.MovieTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -46,14 +45,14 @@ class MainActivity : ComponentActivity() {
                         .background(MovieTheme.colors.background)
                 ) {
                     Scaffold { innerPadding ->
-                        MovieDetailsScreen(
-                            movieId = 4347,
-                            modifier = Modifier.padding(paddingValues = innerPadding)
-                        )
-
-//                        HomeScreen(
+//                        MovieDetailsScreen(
+//                            movieId = 4347,
 //                            modifier = Modifier.padding(paddingValues = innerPadding)
 //                        )
+
+                        HomeScreen(
+                            modifier = Modifier.padding(paddingValues = innerPadding)
+                        )
                     }
 
                     NoInternetBanner(

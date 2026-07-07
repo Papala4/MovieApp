@@ -28,6 +28,7 @@ import com.space.home.presentation.R
 import com.space.home.vm.HomeViewModel
 import com.space.ui.component.cards.Movie
 import com.space.ui.component.search_filter.SearchBar
+import com.space.ui.component.state.EmptyState
 import com.space.ui.component.state.ErrorState
 import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.Spacing
@@ -89,18 +90,14 @@ private fun HomeContent(
                     HomeEvent.CategorySelected(if (category == allCategory) "" else category)
                 )
             },
-            modifier = Modifier.padding(
-                start = Spacing.spacing16,
-                end = Spacing.spacing16,
-                top = Spacing.spacing16
-            )
+            modifier = Modifier.padding(top = Spacing.spacing16)
         )
 
         Spacer(modifier = Modifier.height(Spacing.spacing16))
 
         Text(
             text = stringResource(R.string.home_movies_title),
-            style = MovieTheme.typography.titleSmall,
+            style = MovieTheme.typography.titleMedium,
             color = colors.primary,
             modifier = Modifier.padding(horizontal = Spacing.spacing16)
         )
@@ -122,6 +119,8 @@ private fun HomeContent(
                         movies.retry()
                     }
                 )
+
+                state.query.isNotBlank() && movies.itemCount == 0 -> EmptyState()
 
                 else -> MoviesGrid(movies = movies, onEvent = onEvent)
             }

@@ -64,17 +64,17 @@ fun CategoryControl(
                     .then(
                         if (!isSelected) Modifier.border(
                             width = Dimensions.dimension01,
-                            color = colors.border,
+                            color = colors.textPrimary,
                             shape = Radius.radius30
                         ) else Modifier
                     )
                     .clickable { onItemClick(item) }
-                    .padding(horizontal = Spacing.spacing20)
+                    .padding(horizontal = Spacing.spacing12)
             ) {
 
             Text(
                     text = item,
-                style = MovieTheme.typography.bodyMedium,
+                style = MovieTheme.typography.labelSmall,
                     color = if (isSelected) colors.onPrimary else colors.textPrimary
                 )
             }

@@ -2,12 +2,10 @@ package com.space.ui.theme
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.font.Font
 import com.space.ui.R
-import com.space.ui.theme.TextSizing as Size
-
 
 val MontserratFontFamily = FontFamily(
     Font(R.font.montserrat_medium, FontWeight.Medium),
@@ -16,36 +14,50 @@ val MontserratFontFamily = FontFamily(
 )
 
 data class MovieAppTypography(
+    val labelSmall: TextStyle,
+    val labelMedium: TextStyle,
+    val titleLarge: TextStyle,
     val titleMedium: TextStyle,
-    val titleSmall: TextStyle,
     val bodyMedium: TextStyle,
-    val bodySmall: TextStyle
+    val headlineSmall: TextStyle
 )
 
 val MovieTypography = MovieAppTypography(
-    titleMedium = TextStyle(
-        fontFamily = MontserratFontFamily,
-        fontWeight = FontWeight.Bold,
-        fontSize = Size.size20,
-        lineHeight = Size.size26
-    ),
-    titleSmall = TextStyle(
+    labelSmall = TextStyle(
         fontFamily = MontserratFontFamily,
         fontWeight = FontWeight.SemiBold,
-        fontSize = Size.size16,
-        lineHeight = Size.size18
+        fontSize = TextSizing.size10,
+        lineHeight = TextSizing.size13,
+    ),
+    labelMedium = TextStyle(
+        fontFamily = MontserratFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = TextSizing.size12,
+        lineHeight = TextSizing.size16,
+    ),
+    titleLarge = TextStyle(
+        fontFamily = MontserratFontFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = TextSizing.size20,
+        lineHeight = TextSizing.size26
+    ),
+    titleMedium = TextStyle(
+        fontFamily = MontserratFontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = TextSizing.size16,
+        lineHeight = TextSizing.size20
     ),
     bodyMedium = TextStyle(
         fontFamily = MontserratFontFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = Size.size14,
-        lineHeight = Size.size18
+        fontSize = TextSizing.size14,
+        lineHeight = TextSizing.size18
     ),
-    bodySmall = TextStyle(
+    headlineSmall = TextStyle(
         fontFamily = MontserratFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = Size.size10,
-        lineHeight = Size.size14
+        fontWeight = FontWeight.Bold,
+        fontSize = TextSizing.size18,
+        lineHeight = TextSizing.size18
     )
 )
 

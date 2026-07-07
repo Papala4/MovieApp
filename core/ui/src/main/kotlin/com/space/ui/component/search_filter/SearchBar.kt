@@ -1,5 +1,10 @@
 package com.space.ui.component.search_filter
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
@@ -11,6 +16,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
@@ -26,8 +35,9 @@ import com.space.ui.theme.Spacing
  * [SearchBar] – a composite search component combining [Search], [FilterButton],
  * [CancelButton] and [CategoryControl].
  *
- * - While the query is empty the filter toggle is shown next to the field.
- * - As soon as the user types something the filter toggle is replaced by a
+ * - While the field is unfocused and the query is empty the filter toggle is
+ *   shown next to the field.
+ * - As soon as the field gains focus or holds text the filter toggle is replaced by a
  *   cancel button that clears the text (via [onQueryChange] with an empty string)
  *   and releases focus / hides the keyboard, so the query state stays hoisted
  *   at the caller.
@@ -57,18 +67,23 @@ fun SearchBar(
 ) {
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
+    var isSearchFocused by remember { mutableStateOf(false) }
 
     Column(modifier = modifier.fillMaxWidth()) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(horizontal = Spacing.spacing16)
+        ) {
             Search(
                 query = query,
                 onQueryChange = onQueryChange,
+                onFocusChanged = { isSearchFocused = it },
                 modifier = Modifier.weight(1f)
             )
 
             Spacer(modifier = Modifier.width(Spacing.spacing8))
 
-            if (query.isEmpty()) {
+            if (query.isEmpty() && !isSearchFocused) {
                 FilterButton(
                     isSelected = isFilterSelected,
                     onToggleChange = onFilterToggle
@@ -84,15 +99,23 @@ fun SearchBar(
             }
         }
 
-        if (isFilterSelected) {
-            Spacer(modifier = Modifier.height(Spacing.spacing8))
+        AnimatedVisibility(
+            visible = isFilterSelected,
+            enter = expandVertically() + fadeIn(),
+            exit = shrinkVertically() + fadeOut()
+        ) {
+            Column {
+                Spacer(modifier = Modifier.height(Spacing.spacing8))
 
-            CategoryControl(
-                items = categories,
-                selected = selectedCategory,
-                onItemClick = onCategoryClick,
-                modifier = Modifier.horizontalScroll(rememberScrollState())
-            )
+                CategoryControl(
+                    items = categories,
+                    selected = selectedCategory,
+                    onItemClick = onCategoryClick,
+                    modifier = Modifier
+                        .horizontalScroll(rememberScrollState())
+                        .padding(horizontal = Spacing.spacing16)
+                )
+            }
         }
     }
 }

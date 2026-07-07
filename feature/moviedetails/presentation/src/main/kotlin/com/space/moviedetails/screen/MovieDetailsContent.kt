@@ -177,7 +177,7 @@ fun MovieAboutSection(
     ) {
         Text(
             text = stringResource(R.string.movie_details_about),
-            style = MovieTheme.typography.titleSmall,
+            style = MovieTheme.typography.titleMedium,
             color = MovieTheme.colors.textPrimary
         )
         Text(

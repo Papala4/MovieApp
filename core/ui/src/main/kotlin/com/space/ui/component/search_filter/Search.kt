@@ -53,6 +53,7 @@ import com.space.ui.theme.TextSizing
  * @param modifier Optional external modifier for positioning or sizing.
  * @param placeholder Hint text shown while the query is empty. Defaults to "Search".
  * @param enabled Whether the field accepts input. Defaults to true.
+ * @param onFocusChanged Called when the input's focus state changes.
 */
 
 @Composable
@@ -61,6 +62,7 @@ fun Search(
     modifier: Modifier = Modifier,
     placeholder: String = stringResource(R.string.search_placeholder),
     enabled: Boolean = true,
+    onFocusChanged: (Boolean) -> Unit = {},
     onQueryChange: (String) -> Unit
 ) {
     val focusRequester = remember { FocusRequester() }
@@ -118,6 +120,7 @@ fun Search(
                         .focusRequester(focusRequester)
                         .onFocusChanged { state ->
                             isFocused = state.isFocused
+                            onFocusChanged(state.isFocused)
                         }
                 )
 
@@ -140,7 +143,7 @@ fun Search(
                     tint = Color.Unspecified,
                     modifier = Modifier
                         .size(Dimensions.dimension14)
-                        .clickable { onQueryChange("") }
+                        .clickable { onQueryChange(query.dropLast(1)) }
                 )
             }
         }
