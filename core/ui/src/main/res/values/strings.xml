@@ -8,4 +8,6 @@
     <string name="no_internet_connection">No internet connection</string>
     <string name="no_results_found">No results found</string>
     <string name="try_again_text">We couldn\'t find any movies matching your search. Please try again.</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_favorites">Favorites</string>
 </resources>

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.movieapp.android.application)
     alias(libs.plugins.movieapp.android.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -20,4 +21,5 @@ dependencies{
     implementation(project(":core:network"))
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.bundles.lifecycle)
+    implementation(libs.bundles.navigation3)
 }
