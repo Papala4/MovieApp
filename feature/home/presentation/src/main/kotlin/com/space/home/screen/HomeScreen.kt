@@ -37,7 +37,8 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    onNavigateToFavourites: () -> Unit = {}
+    onNavigateToFavourites: () -> Unit = {},
+    onNavigateToDetails: (Int) -> Unit = {}
 ) {
     val vm: HomeViewModel = koinViewModel()
     val state by vm.state.collectAsState()
@@ -47,6 +48,7 @@ fun HomeScreen(
         vm.effect.collect { effect ->
             when (effect) {
                 HomeEffect.NavigateToFavourites -> onNavigateToFavourites()
+                is HomeEffect.NavigateToDetails -> onNavigateToDetails(effect.movieId)
             }
         }
     }

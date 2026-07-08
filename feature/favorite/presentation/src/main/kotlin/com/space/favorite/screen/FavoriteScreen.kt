@@ -1,5 +1,6 @@
 package com.space.favorite.screen
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,7 +34,8 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun FavoriteScreen(
     modifier: Modifier = Modifier,
-    onNavigateToHome: () -> Unit = {}
+    onNavigateToHome: () -> Unit = {},
+    onNavigateToDetails: (Int) -> Unit = {}
 ) {
     val vm: FavoriteViewModel = koinViewModel()
     val state by vm.state.collectAsState()
@@ -42,6 +44,7 @@ fun FavoriteScreen(
         vm.effect.collect { effect ->
             when (effect) {
                 FavoriteEffect.NavigateToHome -> onNavigateToHome()
+                is FavoriteEffect.NavigateToDetails -> onNavigateToDetails(effect.movieId)
             }
         }
     }
@@ -73,10 +76,12 @@ private fun FavoriteContent(
                 .weight(1f)
                 .fillMaxWidth()
         ) {
-            if (state.movies.isEmpty()) {
-                FavoriteEmptyState()
-            } else {
-                FavoriteMoviesGrid(movies = state.movies, onEvent = onEvent)
+            Crossfade(targetState = state.movies.isEmpty()) { isEmpty ->
+                if (isEmpty) {
+                    FavoriteEmptyState()
+                } else {
+                    FavoriteMoviesGrid(movies = state.movies, onEvent = onEvent)
+                }
             }
         }
     }
@@ -98,7 +103,9 @@ private fun FavoriteMoviesGrid(
             MovieCard(
                 movie = movie,
                 onFavoriteToggle = { onEvent(FavoriteEvent.FavouriteToggled(it)) },
-                placeholder = painterResource(R.drawable.placeholder)
+                placeholder = painterResource(R.drawable.placeholder),
+                onClick = { onEvent(FavoriteEvent.MovieClicked(it)) },
+                modifier = Modifier.animateItem()
             )
         }
     }

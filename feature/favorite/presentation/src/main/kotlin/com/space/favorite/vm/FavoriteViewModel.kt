@@ -32,6 +32,7 @@ class FavoriteViewModel(
     override fun onEvent(event: FavoriteEvent) {
         when (event) {
             is FavoriteEvent.FavouriteToggled -> toggleFavourite(event.movie)
+            is FavoriteEvent.MovieClicked -> sendEffect(FavoriteEffect.NavigateToDetails(event.movie.id))
             FavoriteEvent.HomeClicked -> sendEffect(FavoriteEffect.NavigateToHome)
         }
     }

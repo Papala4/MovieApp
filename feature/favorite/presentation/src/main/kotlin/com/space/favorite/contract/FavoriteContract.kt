@@ -10,9 +10,11 @@ data class FavoriteState(
 
 sealed interface FavoriteEvent : UIEvent {
     data class FavouriteToggled(val movie: Movie) : FavoriteEvent
+    data class MovieClicked(val movie: Movie) : FavoriteEvent
     data object HomeClicked : FavoriteEvent
 }
 
 sealed interface FavoriteEffect : UIEffect {
     data object NavigateToHome : FavoriteEffect
+    data class NavigateToDetails(val movieId: Int) : FavoriteEffect
 }

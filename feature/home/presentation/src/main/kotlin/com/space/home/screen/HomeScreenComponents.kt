@@ -34,7 +34,8 @@ fun MoviesGrid(
                 MovieCard(
                     movie = movie,
                     onFavoriteToggle = { onEvent(HomeEvent.FavouriteToggled(it)) },
-                    placeholder = painterResource(R.drawable.placeholder)
+                    placeholder = painterResource(R.drawable.placeholder),
+                    onClick = { onEvent(HomeEvent.MovieClicked(it)) }
                 )
             }
         }

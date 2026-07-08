@@ -58,6 +58,7 @@ data class Movie(
  * @param modifier Optional external modifier for sizing / spacing.
  * @param placeholder Painter shown when the poster is missing or fails to load;
  * while the poster is loading a shimmer is drawn instead.
+ * @param onClick Called when the user taps the card itself.
  */
 
 @Composable
@@ -65,12 +66,14 @@ fun MovieCard(
     movie: Movie,
     onFavoriteToggle: (Movie) -> Unit,
     modifier: Modifier = Modifier,
-    placeholder: Painter? = null
+    placeholder: Painter? = null,
+    onClick: (Movie) -> Unit = {}
 ) {
 
     val typography = MovieTheme.typography
 
     Card(
+        onClick = { onClick(movie) },
         modifier = modifier
             .width(Dimensions.dimension164),
         shape = Radius.radius16,

@@ -118,6 +118,7 @@ class HomeViewModel(
                 )
             }
             is HomeEvent.FavouriteToggled -> toggleFavourite(event.movie)
+            is HomeEvent.MovieClicked -> sendEffect(HomeEffect.NavigateToDetails(event.movie.id))
 
             HomeEvent.Refresh -> refreshTrigger.update { it + 1 }
             HomeEvent.FavouritesClicked -> sendEffect(HomeEffect.NavigateToFavourites)

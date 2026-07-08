@@ -19,10 +19,12 @@ sealed interface HomeEvent : UIEvent {
     data class FilterToggled(val isSelected: Boolean) : HomeEvent
     data class CategorySelected(val category: String) : HomeEvent
     data class FavouriteToggled(val movie: Movie) : HomeEvent
+    data class MovieClicked(val movie: Movie) : HomeEvent
     data object Refresh : HomeEvent
     data object FavouritesClicked : HomeEvent
 }
 
 sealed interface HomeEffect : UIEffect {
     data object NavigateToFavourites : HomeEffect
+    data class NavigateToDetails(val movieId: Int) : HomeEffect
 }
