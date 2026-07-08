@@ -18,7 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.space.home.screen.HomeScreen
+import com.space.favorite.screen.FavoriteScreen
 import com.space.ui.component.banners.NoInternetBanner
 import com.space.ui.theme.MovieAppTheme
 import com.space.ui.theme.MovieTheme
@@ -54,9 +54,13 @@ class MainActivity : ComponentActivity() {
 //                            modifier = Modifier.padding(paddingValues = innerPadding)
 //                        )
 
-                        HomeScreen(
-                            modifier = Modifier.padding(paddingValues = innerPadding)
-                        )
+//                        HomeScreen(
+//                            modifier = Modifier.padding(paddingValues = innerPadding)
+//                        )
+
+                        FavoriteScreen(
+                            modifier = Modifier.padding(innerPadding)
+                        ) { }
                     }
 
                     NoInternetBanner(

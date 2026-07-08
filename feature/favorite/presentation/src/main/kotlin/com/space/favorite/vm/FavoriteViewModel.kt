@@ -1,0 +1,48 @@
+package com.space.favorite.vm
+
+import androidx.lifecycle.viewModelScope
+import com.space.domain.usecase.AddFavouriteMovieUseCase
+import com.space.domain.usecase.GetFavouriteMoviesUseCase
+import com.space.domain.usecase.RemoveFavouriteMovieUseCase
+import com.space.favorite.contract.FavoriteEffect
+import com.space.favorite.contract.FavoriteEvent
+import com.space.favorite.contract.FavoriteState
+import com.space.favorite.mapper.FavouriteMovieUiMapper
+import com.space.presentation.base.BaseViewModel
+import com.space.ui.component.cards.Movie
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
+
+class FavoriteViewModel(
+    getFavouriteMoviesUseCase: GetFavouriteMoviesUseCase,
+    private val addFavouriteMovieUseCase: AddFavouriteMovieUseCase,
+    private val removeFavouriteMovieUseCase: RemoveFavouriteMovieUseCase,
+    private val mapper: FavouriteMovieUiMapper
+) : BaseViewModel<FavoriteState, FavoriteEvent, FavoriteEffect>(FavoriteState()) {
+
+    init {
+        getFavouriteMoviesUseCase()
+            .onEach { favourites ->
+                setState { copy(movies = favourites.map(mapper::map)) }
+            }
+            .launchIn(viewModelScope)
+    }
+
+    override fun onEvent(event: FavoriteEvent) {
+        when (event) {
+            is FavoriteEvent.FavouriteToggled -> toggleFavourite(event.movie)
+            FavoriteEvent.HomeClicked -> sendEffect(FavoriteEffect.NavigateToHome)
+        }
+    }
+
+    private fun toggleFavourite(movie: Movie) {
+        viewModelScope.launch {
+            if (movie.isFavorite) {
+                removeFavouriteMovieUseCase(movie.id)
+            } else {
+                addFavouriteMovieUseCase(mapper.mapToFavourite(movie))
+            }
+        }
+    }
+}

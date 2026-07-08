@@ -4,6 +4,7 @@ import android.app.Application
 import com.space.data.di.coreDataModule
 import com.space.di.homeDataModule
 import com.space.domain.di.coreDomainModule
+import com.space.favorite.di.favoriteVmModule
 import com.space.home.di.homeUseCaseModule
 import com.space.home.di.homeVmModule
 import com.space.movieapp.di.appModule
@@ -28,6 +29,7 @@ class MovieApp : Application() {
                 homeDataModule,
                 homeUseCaseModule,
                 homeVmModule,
+                favoriteVmModule,
                 useCaseModule,
                 vmModule
             )
