@@ -36,4 +36,3 @@ fun includeAllModules(vararg groupDirs: String) {
 }
 
 include("app")
-include(":feature:home:presentation")
