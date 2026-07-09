@@ -1,10 +1,14 @@
 package com.space.movieapp.navigation
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
@@ -14,6 +18,7 @@ import com.space.favorite.screen.FavoriteScreen
 import com.space.home.screen.HomeScreen
 import com.space.moviedetails.screen.MovieDetailsScreen
 import com.space.ui.component.navigation_buttons.BottomNavBar
+import com.space.ui.theme.MovieTheme
 
 @Composable
 fun MovieNavGraph(modifier: Modifier = Modifier) {
@@ -40,12 +45,15 @@ fun MovieNavGraph(modifier: Modifier = Modifier) {
                 BottomNavBar(
                     isHomeActive = currentKey == HomeKey,
                     onHomeClick = ::openHome,
-                    onFavoritesClick = ::openFavorites
+                    onFavoritesClick = ::openFavorites,
+                    modifier = Modifier.background(MovieTheme.colors.background)
                 )
             }
         },
         modifier = modifier
     ) { innerPadding ->
+        val layoutDirection = LocalLayoutDirection.current
+
         NavDisplay(
             backStack = backStack,
             onBack = { backStack.removeLastOrNull() },
@@ -75,7 +83,11 @@ fun MovieNavGraph(modifier: Modifier = Modifier) {
                     )
                 }
             },
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(
+                start = innerPadding.calculateStartPadding(layoutDirection),
+                top = innerPadding.calculateTopPadding(),
+                end = innerPadding.calculateEndPadding(layoutDirection)
+            )
         )
     }
 }
