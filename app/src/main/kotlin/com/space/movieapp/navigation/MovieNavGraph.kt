@@ -20,6 +20,8 @@ import com.space.moviedetails.screen.MovieDetailsScreen
 import com.space.ui.component.navigation_buttons.BottomNavBar
 import com.space.ui.theme.MovieTheme
 
+//Split it in modules
+
 @Composable
 fun MovieNavGraph(modifier: Modifier = Modifier) {
     val backStack = rememberNavBackStack(HomeKey)

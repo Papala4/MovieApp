@@ -20,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import coil.compose.AsyncImage
 import com.space.moviedetails.presentation.R
 import com.space.ui.component.common.BaseIcon
@@ -29,7 +28,6 @@ import com.space.ui.theme.Dimensions
 import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.Radius
 import com.space.ui.theme.Spacing
-import com.space.ui.theme.TextSizing
 
 @Composable
 fun MoviePosterSection(
@@ -64,8 +62,7 @@ fun MoviePosterSection(
             Text(
                 text = stringResource(R.string.movie_details_trailer),
                 color = colors.onPrimary,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = TextSizing.size14
+                style = MovieTheme.typography.labelSmall
             )
 
             Spacer(modifier = Modifier.padding(Spacing.spacing4))
