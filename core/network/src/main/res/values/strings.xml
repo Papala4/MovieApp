@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="io_message">Network error. Please check your connection</string>
+    <string name="base_message">Something went wrong. Please try again</string>
+    <string name="redirect_message">Redirect error. Please try again</string>
+    <string name="request_message">Request error. Please check your input</string>
+    <string name="server_message">Server error. Please try again later</string>
+    <string name="empty_response_message">Empty response</string>
+</resources>

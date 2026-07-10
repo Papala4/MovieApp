@@ -33,7 +33,6 @@ private val WarningColor = Color(0xFFFFEB3B)
 private val SuccessColor = Color(0xFF4CAF50)
 private val ErrorColor = Color(0xFFFC0000)
 
-
 val DarkMovieColors = MovieAppColors(
     primary = YellowPrimary,
     background = Neutral01,
