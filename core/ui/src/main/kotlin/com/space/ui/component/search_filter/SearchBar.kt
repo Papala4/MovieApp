@@ -42,7 +42,9 @@ import com.space.ui.theme.Spacing
  *   and releases focus / hides the keyboard, so the query state stays hoisted
  *   at the caller.
  * - When the filter is selected, a horizontally scrollable [CategoryControl]
- *   appears below the search field.
+ *   appears below the search field. It is hidden while the user is searching
+ *   (the field is focused or holds text) and reappears when the search is
+ *   cancelled.
  *
  * @param query The current search text (controlled from outside).
  * @param onQueryChange Called on every keystroke and with "" when cancel is tapped.
@@ -68,6 +70,7 @@ fun SearchBar(
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
     var isSearchFocused by remember { mutableStateOf(false) }
+    val isSearching = query.isNotEmpty() || isSearchFocused
 
     Column(modifier = modifier.fillMaxWidth()) {
         Row(
@@ -83,7 +86,7 @@ fun SearchBar(
 
             Spacer(modifier = Modifier.width(Spacing.spacing8))
 
-            if (query.isEmpty() && !isSearchFocused) {
+            if (!isSearching) {
                 FilterButton(
                     isSelected = isFilterSelected,
                     onToggleChange = onFilterToggle
@@ -100,7 +103,7 @@ fun SearchBar(
         }
 
         AnimatedVisibility(
-            visible = isFilterSelected,
+            visible = isFilterSelected && !isSearching,
             enter = expandVertically() + fadeIn(),
             exit = shrinkVertically() + fadeOut()
         ) {
