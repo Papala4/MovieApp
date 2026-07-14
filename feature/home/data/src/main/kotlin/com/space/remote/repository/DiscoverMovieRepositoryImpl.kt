@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.space.model.MovieResponse
-import com.space.remote.api.DiscoverMovieApi
+import com.space.remote.datasource.discover.DiscoverMovieDataSource
 import com.space.remote.mapper.PopularMovieMapper
 import com.space.remote.paging.DiscoverMoviesPagingSource
 import com.space.repository.DiscoverMovieRepository
@@ -20,7 +20,11 @@ class DiscoverMovieRepositoryImpl(
     override fun discoverMovies(genreId: Int): Flow<PagingData<MovieResponse>> =
         Pager(
             config = PagingConfig(pageSize = PAGE_SIZE),
-            pagingSourceFactory = { DiscoverMoviesPagingSource(api, genreId) }
+            pagingSourceFactory = {
+                MoviesPagingSource { page ->
+                    dataSource.discoverMovies(genreIds.joinToString(GENRE_OR_SEPARATOR), page)
+                }
+            }
         ).flow.map { pagingData -> pagingData.map(mapper::map) }
 
     companion object {

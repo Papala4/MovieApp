@@ -2,7 +2,7 @@ package com.space.remote.repository
 
 import com.space.model.GenreResponse
 import com.space.network.api_result.ApiResult
-import com.space.remote.datasource.GenreDataSource
+import com.space.remote.datasource.genre.GenreDataSource
 import com.space.remote.mapper.GenreMapper
 import com.space.repository.GenreRepository
 import kotlinx.coroutines.flow.Flow
