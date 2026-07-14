@@ -1,4 +1,4 @@
-package com.space.remote.datasource
+package com.space.remote.datasource.genre
 
 import com.space.network.api_result.ApiResult
 import com.space.network.handler.ResponseHandler
