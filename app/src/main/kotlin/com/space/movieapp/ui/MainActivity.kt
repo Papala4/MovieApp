@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
                         MovieDetailsScreen(
                             movieId = 4347,
                             modifier = Modifier.padding(paddingValues = innerPadding)
-                        )
+                        ) // just for test Todo{delete before merge}
                     }
 
                     NoInternetBanner(

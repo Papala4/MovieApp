@@ -26,7 +26,7 @@ import com.space.moviedetails.contract.MovieDetailsEvent
 import com.space.moviedetails.contract.MovieDetailsState
 import com.space.moviedetails.model.MovieDetailsUi
 import com.space.moviedetails.presentation.R
-import com.space.moviedetails.vm.MovieDetailsViewModel
+import com.space.moviedetails.vm.MovieDetailsVm
 import com.space.ui.component.navigation_buttons.Header
 import com.space.ui.theme.MovieAppTheme
 import com.space.ui.theme.MovieTheme
@@ -39,7 +39,7 @@ fun MovieDetailsScreen(
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {}
 ) {
-    val vm: MovieDetailsViewModel = koinViewModel()
+    val vm: MovieDetailsVm = koinViewModel()
     val state by vm.state.collectAsState()
 
     LaunchedEffect(movieId) {
