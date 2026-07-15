@@ -79,7 +79,9 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 movieapp-android-application = { id = "movieapp.android.application" }
 movieapp-android-compose = { id = "movieapp.android.compose" }
 movieapp-android-library = { id = "movieapp.android.library" }
+movieapp-android-feature = {id = "movieapp.android.feature"}
 android-built-in1-kotlin = { id = "com.android.built-in-kotlin", version.ref = "android-built-in1-kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 
 [bundles]

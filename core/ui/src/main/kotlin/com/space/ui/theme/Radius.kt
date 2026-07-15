@@ -8,6 +8,7 @@ object Radius {
     val radius10 = RoundedCornerShape(10.dp)
     val radius12 = RoundedCornerShape(12.dp)
     val radius16 = RoundedCornerShape(16.dp)
+    val radius22 = RoundedCornerShape(22.dp)
     val radius24 = RoundedCornerShape(24.dp)
     val radius30 = RoundedCornerShape(30.dp)
     val radius32 = RoundedCornerShape(32.dp)
