@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface DiscoverMovieApi {
     @GET("discover/movie")
     suspend fun discoverMovies(
-        @Query("with_genres") withGenres: String,
+        @Query("with_genres") genreId: Int,
         @Query("page") page: Int
     ): Response<PopularMovieDto>
 }

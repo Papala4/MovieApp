@@ -6,6 +6,6 @@ import com.space.repository.DiscoverMovieRepository
 import kotlinx.coroutines.flow.Flow
 
 class DiscoverMoviesUseCase(private val repository: DiscoverMovieRepository) {
-    operator fun invoke(genreIds: List<Int>): Flow<PagingData<MovieResponse>> =
-        repository.discoverMovies(genreIds)
+    operator fun invoke(genreId: Int): Flow<PagingData<MovieResponse>> =
+        repository.discoverMovies(genreId)
 }

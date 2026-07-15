@@ -18,17 +18,13 @@ class DiscoverMovieRepositoryImpl(
     private val mapper: PopularMovieMapper
 ) : DiscoverMovieRepository {
 
-    override fun discoverMovies(genreIds: List<Int>): Flow<PagingData<MovieResponse>> =
+    override fun discoverMovies(genreId: Int): Flow<PagingData<MovieResponse>> =
         Pager(
             config = PagingConfig(pageSize = PAGE_SIZE),
             pagingSourceFactory = {
                 MoviesPagingSource { page ->
-                    dataSource.discoverMovies(genreIds.joinToString(GENRE_OR_SEPARATOR), page)
+                    dataSource.discoverMovies(genreId, page)
                 }
             }
         ).flow.map { pagingData -> pagingData.map(mapper::map) }
-
-    companion object {
-        private const val GENRE_OR_SEPARATOR = "|"
-    }
 }

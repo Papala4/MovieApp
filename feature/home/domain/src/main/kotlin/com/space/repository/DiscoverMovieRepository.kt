@@ -5,5 +5,5 @@ import com.space.model.MovieResponse
 import kotlinx.coroutines.flow.Flow
 
 interface DiscoverMovieRepository {
-    fun discoverMovies(genreIds: List<Int>): Flow<PagingData<MovieResponse>>
+    fun discoverMovies(genreId: Int): Flow<PagingData<MovieResponse>>
 }
