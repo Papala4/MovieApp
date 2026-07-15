@@ -8,6 +8,7 @@ import com.space.model.MovieResponse
 import com.space.remote.datasource.discover.DiscoverMovieDataSource
 import com.space.remote.mapper.PopularMovieMapper
 import com.space.remote.paging.MoviesPagingSource
+import com.space.remote.paging.PAGE_SIZE
 import com.space.repository.DiscoverMovieRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -28,8 +29,6 @@ class DiscoverMovieRepositoryImpl(
         ).flow.map { pagingData -> pagingData.map(mapper::map) }
 
     companion object {
-        private const val PAGE_SIZE = 20
-
         private const val GENRE_OR_SEPARATOR = "|"
     }
 }

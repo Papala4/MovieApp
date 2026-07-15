@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.space.mylibrary"
+    namespace = "com.space.home_data"
 }
 
 dependencies {
