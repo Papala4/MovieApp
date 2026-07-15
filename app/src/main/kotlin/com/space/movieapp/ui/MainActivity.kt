@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
 
                         HomeScreen(
                             modifier = Modifier.padding(paddingValues = innerPadding)
-                        )
+                        ) // just for test Todo{delete before merge}
                     }
 
                     NoInternetBanner(
