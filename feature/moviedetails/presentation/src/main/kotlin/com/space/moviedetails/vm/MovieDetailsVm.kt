@@ -10,7 +10,7 @@ import com.space.network.api_result.ApiResult
 import com.space.presentation.base.BaseViewModel
 import kotlinx.coroutines.launch
 
-class MovieDetailsViewModel(
+class MovieDetailsVm(
     private val getMovieDetailsUseCase: GetMovieDetailsUseCase,
     private val mapper: MovieDetailsUiMapper
 ) : BaseViewModel<MovieDetailsState, MovieDetailsEvent, MovieDetailsEffect>(MovieDetailsState()) {
