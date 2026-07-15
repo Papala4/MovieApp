@@ -1,0 +1,16 @@
+package com.space.remote.datasource.genre
+
+import com.space.network.api_result.ApiResult
+import com.space.network.handler.ResponseHandler
+import com.space.remote.api.GenreApi
+import com.space.remote.dto.GenresDto
+import kotlinx.coroutines.flow.Flow
+
+class GenreDataSourceImpl(
+    private val api: GenreApi,
+    private val responseHandler: ResponseHandler
+) : GenreDataSource {
+
+    override fun getGenres(): Flow<ApiResult<GenresDto>> =
+        responseHandler.apiCall { api.getGenres() }
+}
