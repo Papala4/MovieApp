@@ -16,7 +16,7 @@ class GenreRepositoryImpl(
     override fun getGenres(): Flow<ApiResult<List<GenreResponse>>> =
         dataSource.getGenres().map { result ->
             when (result) {
-                is ApiResult.Success -> ApiResult.Success(result.data.map(mapper::map))
+                is ApiResult.Success -> ApiResult.Success(result.data.genres.map(mapper::map))
                 is ApiResult.Error -> ApiResult.Error(result.exception)
                 ApiResult.Loading -> ApiResult.Loading
             }

@@ -4,5 +4,5 @@ import com.space.remote.dto.PopularMovieDto
 import retrofit2.Response
 
 interface DiscoverMovieDataSource {
-    suspend fun discoverMovies(withGenres: String, page: Int): Response<PopularMovieDto>
+    suspend fun discoverMovies(genreId: Int, page: Int): Response<PopularMovieDto>
 }

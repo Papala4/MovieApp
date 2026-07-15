@@ -13,18 +13,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class DiscoverMovieRepositoryImpl(
-    private val api: DiscoverMovieApi,
+    private val dataSource: DiscoverMovieDataSource,
     private val mapper: PopularMovieMapper
 ) : DiscoverMovieRepository {
 
     override fun discoverMovies(genreId: Int): Flow<PagingData<MovieResponse>> =
         Pager(
             config = PagingConfig(pageSize = PAGE_SIZE),
-            pagingSourceFactory = {
-                MoviesPagingSource { page ->
-                    dataSource.discoverMovies(genreIds.joinToString(GENRE_OR_SEPARATOR), page)
-                }
-            }
+            pagingSourceFactory = { DiscoverMoviesPagingSource(dataSource, genreId) }
         ).flow.map { pagingData -> pagingData.map(mapper::map) }
 
     companion object {

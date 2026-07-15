@@ -8,6 +8,6 @@ class DiscoverMovieDataSourceImpl(
     private val api: DiscoverMovieApi
 ) : DiscoverMovieDataSource {
 
-    override suspend fun discoverMovies(withGenres: String, page: Int): Response<PopularMovieDto> =
-        api.discoverMovies(withGenres, page)
+    override suspend fun discoverMovies(genreId: Int, page: Int): Response<PopularMovieDto> =
+        api.discoverMovies(genreId, page)
 }
