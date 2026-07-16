@@ -63,9 +63,9 @@ data class Movie(
 @Composable
 fun MovieCard(
     movie: Movie,
-    onFavoriteToggle: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    placeholder: Painter? = null
+    placeholder: Painter? = null,
+    onFavoriteToggle: (Int) -> Unit
 ) {
 
     val typography = MovieTheme.typography
