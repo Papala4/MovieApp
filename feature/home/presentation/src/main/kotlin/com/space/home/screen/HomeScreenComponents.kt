@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,6 +13,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.space.home.contract.HomeEvent
 import com.space.home.presentation.R
+import com.space.ui.component.banners.NoInternetBanner
 import com.space.ui.component.cards.Movie
 import com.space.ui.component.cards.MovieCard
 import com.space.ui.component.cards.MovieCardShimmer
@@ -33,16 +35,28 @@ fun MoviesGrid(
             movies[index]?.let { movie ->
                 MovieCard(
                     movie = movie,
-                    onFavoriteToggle = { onEvent(HomeEvent.FavouriteToggled(it)) },
+                    onFavoriteToggle = { id -> onEvent(HomeEvent.FavouriteToggled(id)) },
                     placeholder = painterResource(R.drawable.placeholder)
                 )
             }
         }
 
-        if (movies.loadState.append is LoadState.Loading) {
-            items(GRID_COLUMNS) {
-                MovieCardShimmer()
+        when (movies.loadState.append) {
+            is LoadState.Loading -> {
+                items(GRID_COLUMNS) {
+                    MovieCardShimmer()
+                }
             }
+
+            is LoadState.Error -> {
+                item(span = { GridItemSpan(maxLineSpan) }) {
+                    NoInternetBanner(
+                        visible = true
+                    )
+                }
+            }
+
+            is LoadState.NotLoading -> {}
         }
     }
 }

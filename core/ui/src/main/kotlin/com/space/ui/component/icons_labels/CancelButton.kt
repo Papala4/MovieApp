@@ -14,8 +14,8 @@ import com.space.ui.theme.Size
 
 @Composable
 fun CancelButton(
-    onClick: () -> Unit,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    onClick: () -> Unit
 ) {
     TextButton(
         onClick = onClick,

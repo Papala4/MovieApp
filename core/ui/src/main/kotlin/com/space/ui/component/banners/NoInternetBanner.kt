@@ -15,13 +15,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.space.ui.R
 import com.space.ui.theme.MovieAppTheme
+import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.MovieTheme.colors
 import com.space.ui.theme.Spacing
-import com.space.ui.theme.TextSizing
 
 /**
  * [NoInternetBanner] – app-level banner shown while the device has no internet connection.
@@ -43,8 +42,10 @@ fun NoInternetBanner(
     visible: Boolean,
     modifier: Modifier = Modifier,
     message: String = stringResource(R.string.no_internet_connection),
-    windowInsets: WindowInsets = WindowInsets.statusBars
+    windowInsets: WindowInsets = WindowInsets(0)
 ) {
+    val typography = MovieTheme.typography
+
     AnimatedVisibility(
         visible = visible,
         enter = expandVertically(),
@@ -54,16 +55,15 @@ fun NoInternetBanner(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(colors.surface)
+                .background(colors.background)
                 .windowInsetsPadding(windowInsets)
                 .padding(vertical = Spacing.spacing8),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = message,
-                color = colors.textPrimary,
-                fontSize = TextSizing.size12,
-                fontWeight = FontWeight.SemiBold
+                color = colors.primary,
+                style = typography.labelMedium,
             )
         }
     }

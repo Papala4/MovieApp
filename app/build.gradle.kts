@@ -16,7 +16,6 @@ dependencies{
     implementation(project(":feature:moviedetails:data"))
     implementation(project(":feature:home:data"))
     implementation(project(":feature:home:presentation"))
-    implementation(project(":core:network"))
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.bundles.lifecycle)
 }

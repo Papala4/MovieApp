@@ -41,7 +41,7 @@ fun HomeScreen(
 ) {
     val vm: HomeViewModel = koinViewModel()
     val state by vm.state.collectAsState()
-    val movies = vm.movies.collectAsLazyPagingItems()
+    val movies = state.movies.collectAsLazyPagingItems()
 
     LaunchedEffect(Unit) {
         vm.effect.collect { effect ->
