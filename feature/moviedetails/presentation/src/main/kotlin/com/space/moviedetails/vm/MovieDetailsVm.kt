@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-class MovieDetailsViewModel(
+class MovieDetailsVm(
     private val getMovieDetailsUseCase: GetMovieDetailsUseCase,
     getFavouriteMoviesUseCase: GetFavouriteMoviesUseCase,
     private val addFavouriteMovieUseCase: AddFavouriteMovieUseCase,

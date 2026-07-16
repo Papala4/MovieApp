@@ -28,8 +28,8 @@ import com.space.ui.theme.Spacing
 
 @Composable
 fun ErrorState(
-    onRefresh: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onRefresh: () -> Unit
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
