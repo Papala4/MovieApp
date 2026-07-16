@@ -63,7 +63,7 @@ data class Movie(
 @Composable
 fun MovieCard(
     movie: Movie,
-    onFavoriteToggle: (Movie) -> Unit,
+    onFavoriteToggle: (Int) -> Unit,
     modifier: Modifier = Modifier,
     placeholder: Painter? = null
 ) {
@@ -140,7 +140,7 @@ fun MovieCard(
                 FavouriteButton(
                     isFavourite = movie.isFavorite,
                     size = Size.size26,
-                    onToggleChange = { onFavoriteToggle(movie) }
+                    onToggleChange = { onFavoriteToggle(movie.id) }
                 )
             }
         }
@@ -180,9 +180,9 @@ fun MovieRow(
         items(movieList, key = { it.id }) { movie ->
             MovieCard(
                 movie = movie,
-                onFavoriteToggle = { toggled ->
+                onFavoriteToggle = { movieId ->
                     movieList = movieList.map {
-                        if (it.id == toggled.id) it.copy(isFavorite = !it.isFavorite) else it
+                        if (it.id == movieId) it.copy(isFavorite = !it.isFavorite) else it
                     }
                 }
             )
