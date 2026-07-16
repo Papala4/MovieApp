@@ -9,7 +9,6 @@ import com.space.favorite.contract.FavoriteEvent
 import com.space.favorite.contract.FavoriteState
 import com.space.favorite.mapper.FavouriteMovieUiMapper
 import com.space.presentation.base.BaseViewModel
-import com.space.ui.component.cards.Movie
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -31,12 +30,13 @@ class FavoriteViewModel(
 
     override fun onEvent(event: FavoriteEvent) {
         when (event) {
-            is FavoriteEvent.FavouriteToggled -> toggleFavourite(event.movie)
+            is FavoriteEvent.FavouriteToggled -> toggleFavourite(event.movieId)
             FavoriteEvent.HomeClicked -> sendEffect(FavoriteEffect.NavigateToHome)
         }
     }
 
-    private fun toggleFavourite(movie: Movie) {
+    private fun toggleFavourite(movieId: Int) {
+        val movie = state.value.movies.find { it.id == movieId } ?: return
         viewModelScope.launch {
             if (movie.isFavorite) {
                 removeFavouriteMovieUseCase(movie.id)
