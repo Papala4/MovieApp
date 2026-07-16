@@ -1,8 +1,8 @@
 package com.space.favorite.contract
 
+import com.space.domain.model.Movie
 import com.space.presentation.base.UIEffect
 import com.space.presentation.base.UIEvent
-import com.space.ui.component.cards.Movie
 
 data class FavoriteState(
     val movies: List<Movie> = emptyList()

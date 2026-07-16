@@ -1,6 +1,6 @@
 package com.space.moviedetails.mapper
 
-import com.space.domain.model.FavouriteMovie
+import com.space.domain.model.Movie
 import com.space.moviedetails.model.MovieDetailsResponse
 import com.space.moviedetails.model.MovieDetailsUi
 import java.util.Locale
@@ -17,12 +17,13 @@ class MovieDetailsUiMapper {
         genre = movieDetailsResponse.genre,
     )
 
-    fun mapToFavourite(movie: MovieDetailsUi) = FavouriteMovie(
+    fun mapToMovie(movie: MovieDetailsUi) = Movie(
         id = movie.id,
         title = movie.title,
         posterUrl = movie.posterPath,
-        releaseYear = movie.releaseYear,
-        genre = movie.genre.orEmpty()
+        year = movie.releaseYear,
+        genre = movie.genre.orEmpty(),
+        isFavorite = movie.isFavourite
     )
 
     private fun formatRuntime(minutes: Int): String {

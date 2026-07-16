@@ -7,7 +7,6 @@ import com.space.domain.usecase.RemoveFavouriteMovieUseCase
 import com.space.favorite.contract.FavoriteEffect
 import com.space.favorite.contract.FavoriteEvent
 import com.space.favorite.contract.FavoriteState
-import com.space.favorite.mapper.FavouriteMovieUiMapper
 import com.space.presentation.base.BaseViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -16,14 +15,13 @@ import kotlinx.coroutines.launch
 class FavoriteViewModel(
     getFavouriteMoviesUseCase: GetFavouriteMoviesUseCase,
     private val addFavouriteMovieUseCase: AddFavouriteMovieUseCase,
-    private val removeFavouriteMovieUseCase: RemoveFavouriteMovieUseCase,
-    private val mapper: FavouriteMovieUiMapper
+    private val removeFavouriteMovieUseCase: RemoveFavouriteMovieUseCase
 ) : BaseViewModel<FavoriteState, FavoriteEvent, FavoriteEffect>(FavoriteState()) {
 
     init {
         getFavouriteMoviesUseCase()
             .onEach { favourites ->
-                setState { copy(movies = favourites.map(mapper::map)) }
+                setState { copy(movies = favourites) }
             }
             .launchIn(viewModelScope)
     }
@@ -42,7 +40,7 @@ class FavoriteViewModel(
             if (movie.isFavorite) {
                 removeFavouriteMovieUseCase(movie.id)
             } else {
-                addFavouriteMovieUseCase(mapper.mapToFavourite(movie))
+                addFavouriteMovieUseCase(movie)
             }
         }
     }
