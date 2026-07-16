@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -27,6 +28,7 @@ fun BottomNavBar(
         horizontalArrangement = Arrangement.spacedBy(Spacing.spacing8),
         modifier = modifier
             .fillMaxWidth()
+            .navigationBarsPadding()
             .padding(horizontal = Spacing.spacing16, vertical = Spacing.spacing8)
             .background(color = colors.onPrimary, shape = Radius.radius12)
             .padding(Spacing.spacing8)

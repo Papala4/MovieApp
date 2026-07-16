@@ -88,7 +88,8 @@ fun MovieNavGraph(modifier: Modifier = Modifier) {
             modifier = Modifier.padding(
                 start = innerPadding.calculateStartPadding(layoutDirection),
                 top = innerPadding.calculateTopPadding(),
-                end = innerPadding.calculateEndPadding(layoutDirection)
+                end = innerPadding.calculateEndPadding(layoutDirection),
+                bottom = innerPadding.calculateBottomPadding()
             )
         )
     }
