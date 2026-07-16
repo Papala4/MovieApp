@@ -1,5 +1,6 @@
 package com.space.ui.component.common
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -20,6 +21,7 @@ fun MovieButton(
     shape: Shape = Radius.radius8,
     colors: ButtonColors = ButtonDefaults.buttonColors(),
     elevation: ButtonElevation? = ButtonDefaults.buttonElevation(),
+    contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     debounceTime: Long = 500L,
     content: @Composable RowScope.() -> Unit
 ) {
@@ -30,6 +32,7 @@ fun MovieButton(
         shape = shape,
         colors = colors,
         elevation = elevation,
+        contentPadding = contentPadding,
         content = content
     )
 }

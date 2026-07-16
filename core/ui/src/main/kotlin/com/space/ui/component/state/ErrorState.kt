@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.space.ui.R
 import com.space.ui.component.common.BaseIcon
+import com.space.ui.component.common.MovieButton
 import com.space.ui.theme.MovieAppTheme
 import com.space.ui.theme.MovieTheme.colors
 import com.space.ui.theme.MovieTheme.typography
@@ -58,7 +58,7 @@ fun ErrorState(
 
         Spacer(modifier = Modifier.height(Spacing.spacing64))
 
-        Button(
+        MovieButton(
             onClick = onRefresh,
             shape = Radius.radius24,
             colors = ButtonDefaults.buttonColors(

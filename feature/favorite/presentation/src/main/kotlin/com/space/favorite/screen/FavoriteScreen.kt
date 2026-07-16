@@ -18,17 +18,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import com.space.domain.model.Movie
 import com.space.favorite.component.FavoriteEmptyState
 import com.space.favorite.contract.FavoriteEffect
 import com.space.favorite.contract.FavoriteEvent
 import com.space.favorite.contract.FavoriteState
 import com.space.favorite.presentation.R
 import com.space.favorite.vm.FavoriteViewModel
-import com.space.ui.component.cards.Movie
 import com.space.ui.component.cards.MovieCard
 import com.space.ui.component.navigation_buttons.Header
 import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.Spacing
+import com.space.ui.util.onSingleClick
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -92,6 +93,10 @@ private fun FavoriteMoviesGrid(
     movies: List<Movie>,
     onEvent: (FavoriteEvent) -> Unit
 ) {
+    val debouncedClick = onSingleClick<Movie> { movie ->
+        onEvent(FavoriteEvent.MovieClicked(movie))
+    }
+
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(Spacing.spacing16),
@@ -103,7 +108,7 @@ private fun FavoriteMoviesGrid(
             MovieCard(
                 movie = movie,
                 placeholder = painterResource(R.drawable.placeholder),
-                onClick = { onEvent(FavoriteEvent.MovieClicked(it)) },
+                onClick = { debouncedClick(it) },
                 modifier = Modifier.animateItem(),
                 onFavoriteToggle =  { id -> onEvent(FavoriteEvent.FavouriteToggled(id)) }
             )

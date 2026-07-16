@@ -39,3 +39,18 @@ fun onSingleClick(
         }
     }
 }
+
+@Composable
+fun <T> onSingleClick(
+    debounceTime: Long = 500L,
+    onClick: (T) -> Unit
+): (T) -> Unit {
+    var lastClickTime by remember { mutableLongStateOf(0L) }
+    return { param ->
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastClickTime > debounceTime) {
+            lastClickTime = currentTime
+            onClick(param)
+        }
+    }
+}

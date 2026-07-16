@@ -2,7 +2,6 @@ package com.space.ui.component.search_filter
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -19,6 +18,7 @@ import com.space.ui.theme.Dimensions
 import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.Radius
 import com.space.ui.theme.Spacing
+import com.space.ui.util.clickableSingle
 
 /**
  * [CategoryControl] – a horizontal pill-style tab/filter selector.
@@ -68,7 +68,7 @@ fun CategoryControl(
                             shape = Radius.radius30
                         ) else Modifier
                     )
-                    .clickable { onItemClick(item) }
+                    .clickableSingle { onItemClick(item) }
                     .padding(horizontal = Spacing.spacing12)
             ) {
 

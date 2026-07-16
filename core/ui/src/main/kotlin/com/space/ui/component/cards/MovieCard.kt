@@ -41,6 +41,7 @@ import com.space.ui.theme.MovieTheme.colors
 import com.space.ui.theme.Radius
 import com.space.ui.theme.Size
 import com.space.ui.theme.Spacing
+import com.space.ui.util.onSingleClick
 
 /**
  * [MovieCard] – a self-contained, reusable card component.
@@ -65,7 +66,7 @@ fun MovieCard(
     val typography = MovieTheme.typography
 
     Card(
-        onClick = { onClick(movie) },
+        onClick = onSingleClick { onClick(movie) },
         modifier = modifier
             .width(Dimensions.dimension164),
         shape = Radius.radius16,

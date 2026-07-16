@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.space.ui.R
 import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.Size
+import com.space.ui.util.onSingleClick
 
 @Composable
 fun CancelButton(
@@ -18,7 +19,7 @@ fun CancelButton(
     onClick: () -> Unit
 ) {
     TextButton(
-        onClick = onClick,
+        onClick = onSingleClick { onClick() },
         enabled = enabled,
         modifier = Modifier.height(Size.size36),
         colors = ButtonDefaults.textButtonColors(

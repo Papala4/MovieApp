@@ -11,19 +11,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import com.space.domain.model.Movie
 import com.space.home.contract.HomeEvent
 import com.space.home.presentation.R
 import com.space.ui.component.banners.NoInternetBanner
-import com.space.ui.component.cards.Movie
 import com.space.ui.component.cards.MovieCard
 import com.space.ui.component.cards.MovieCardShimmer
 import com.space.ui.theme.Spacing
+import com.space.ui.util.onSingleClick
 
 @Composable
 fun MoviesGrid(
     movies: LazyPagingItems<Movie>,
     onEvent: (HomeEvent) -> Unit
 ) {
+    val debouncedClick = onSingleClick<Movie> { movie ->
+        onEvent(HomeEvent.MovieClicked(movie))
+    }
+
     LazyVerticalGrid(
         columns = GridCells.Fixed(GRID_COLUMNS),
         contentPadding = PaddingValues(Spacing.spacing16),
@@ -37,7 +42,7 @@ fun MoviesGrid(
                     movie = movie,
                     onFavoriteToggle = { _ -> onEvent(HomeEvent.FavouriteToggled(movie)) },
                     placeholder = painterResource(R.drawable.placeholder),
-                    onClick = { onEvent(HomeEvent.MovieClicked(it)) }
+                    onClick = { debouncedClick(it) }
                 )
             }
         }

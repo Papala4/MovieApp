@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
 import com.space.moviedetails.presentation.R
 import com.space.ui.component.common.BaseIcon
+import com.space.ui.component.common.MovieButton
 import com.space.ui.component.icons_labels.FavouriteButton
 import com.space.ui.theme.Dimensions
 import com.space.ui.theme.MovieTheme
@@ -47,7 +47,7 @@ fun MoviePosterSection(
                 .aspectRatio(0.76f)
         )
 
-        Button(
+        MovieButton(
             onClick = onTrailerClick,
             modifier = Modifier
                 .align(Alignment.BottomEnd)

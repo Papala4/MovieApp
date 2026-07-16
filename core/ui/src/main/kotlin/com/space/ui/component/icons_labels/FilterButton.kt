@@ -8,6 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.space.ui.R
 import com.space.ui.component.common.BaseIcon
 import com.space.ui.theme.Size
+import com.space.ui.util.onSingleClick
 
 @Composable
 fun FilterButton(
@@ -15,9 +16,11 @@ fun FilterButton(
     enabled: Boolean = true,
     onToggleChange: (Boolean) -> Unit
 ) {
+    val debouncedToggle = onSingleClick { onToggleChange(!isSelected) }
+
     IconToggleButton(
         checked = isSelected,
-        onCheckedChange = onToggleChange,
+        onCheckedChange = { debouncedToggle() },
         modifier = Modifier.size(Size.size36),
         enabled = enabled
     ) {

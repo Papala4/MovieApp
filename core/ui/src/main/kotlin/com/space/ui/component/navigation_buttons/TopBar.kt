@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.space.ui.R
 import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.Spacing
+import com.space.ui.util.onSingleClick
 
 @Composable
 fun Header(
@@ -49,7 +50,7 @@ fun BackButton(
     val colors = MovieTheme.colors
 
     IconButton(
-        onClick = onBackClick,
+        onClick = onSingleClick { onBackClick() },
     ) {
         Icon(
             painter = painterResource(R.drawable.back_btn),

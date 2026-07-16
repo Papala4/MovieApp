@@ -1,7 +1,6 @@
 package com.space.ui.component.search_filter
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -39,6 +38,7 @@ import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.Radius
 import com.space.ui.theme.Spacing
 import com.space.ui.theme.TextSizing
+import com.space.ui.util.clickableSingle
 
 /**
  * [Search] – a styled, focus-aware search input field.
@@ -89,7 +89,7 @@ fun Search(
                 contentDescription = null,
                 modifier = Modifier
                     .size(Dimensions.dimension14)
-                    .clickable {
+                    .clickableSingle {
                         if (isFocused) {
                             focusManager.clearFocus()
                             keyboardController?.hide()
@@ -143,7 +143,7 @@ fun Search(
                     tint = Color.Unspecified,
                     modifier = Modifier
                         .size(Dimensions.dimension14)
-                        .clickable { onQueryChange(query.dropLast(1)) }
+                        .clickableSingle { onQueryChange(query.dropLast(1)) }
                 )
             }
         }

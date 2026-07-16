@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.Dp
 import com.space.ui.R
 import com.space.ui.component.common.BaseIcon
 import com.space.ui.theme.Dimensions
+import com.space.ui.util.onSingleClick
 
 @Composable
 fun FavouriteButton(
@@ -17,9 +18,11 @@ fun FavouriteButton(
     size: Dp = Dimensions.dimension40,
     onToggleChange: (Boolean) -> Unit
 ) {
+    val debouncedToggle = onSingleClick { onToggleChange(!isFavourite) }
+
     IconToggleButton(
         checked = isFavourite,
-        onCheckedChange = onToggleChange,
+        onCheckedChange = { debouncedToggle() },
         enabled = enabled,
         modifier = Modifier.size(size)
     ) {
