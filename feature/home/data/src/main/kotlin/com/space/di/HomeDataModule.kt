@@ -4,8 +4,14 @@ import com.space.remote.api.DiscoverMovieApi
 import com.space.remote.api.GenreApi
 import com.space.remote.api.PopularMovieApi
 import com.space.remote.api.SearchMovieApi
-import com.space.remote.datasource.GenreDataSource
-import com.space.remote.datasource.GenreDataSourceImpl
+import com.space.remote.datasource.discover.DiscoverMovieDataSource
+import com.space.remote.datasource.discover.DiscoverMovieDataSourceImpl
+import com.space.remote.datasource.genre.GenreDataSource
+import com.space.remote.datasource.genre.GenreDataSourceImpl
+import com.space.remote.datasource.popular.PopularMovieDataSource
+import com.space.remote.datasource.popular.PopularMovieDataSourceImpl
+import com.space.remote.datasource.search.SearchMovieDataSource
+import com.space.remote.datasource.search.SearchMovieDataSourceImpl
 import com.space.remote.mapper.GenreMapper
 import com.space.remote.mapper.PopularMovieMapper
 import com.space.remote.repository.DiscoverMovieRepositoryImpl
@@ -25,6 +31,9 @@ val homeDataModule = module {
     single<SearchMovieApi> { get<Retrofit>().create(SearchMovieApi::class.java) }
     single<GenreApi> { get<Retrofit>().create(GenreApi::class.java) }
     single<GenreDataSource> { GenreDataSourceImpl(get(), get()) }
+    single<PopularMovieDataSource> { PopularMovieDataSourceImpl(get()) }
+    single<SearchMovieDataSource> { SearchMovieDataSourceImpl(get()) }
+    single<DiscoverMovieDataSource> { DiscoverMovieDataSourceImpl(get()) }
     single<PopularMovieRepository> { PopularMovieRepositoryImpl(get(), get()) }
     single<DiscoverMovieRepository> { DiscoverMovieRepositoryImpl(get(), get()) }
     single<SearchMovieRepository> { SearchMovieRepositoryImpl(get(), get()) }

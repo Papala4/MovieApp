@@ -102,10 +102,10 @@ private fun FavoriteMoviesGrid(
         items(movies, key = { it.id }) { movie ->
             MovieCard(
                 movie = movie,
-                onFavoriteToggle = { onEvent(FavoriteEvent.FavouriteToggled(it)) },
                 placeholder = painterResource(R.drawable.placeholder),
                 onClick = { onEvent(FavoriteEvent.MovieClicked(it)) },
-                modifier = Modifier.animateItem()
+                modifier = Modifier.animateItem(),
+                onFavoriteToggle =  { id -> onEvent(FavoriteEvent.FavouriteToggled(id)) }
             )
         }
     }

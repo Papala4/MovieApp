@@ -5,25 +5,26 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.space.model.MovieResponse
-import com.space.remote.api.DiscoverMovieApi
+import com.space.remote.datasource.discover.DiscoverMovieDataSource
 import com.space.remote.mapper.PopularMovieMapper
-import com.space.remote.paging.DiscoverMoviesPagingSource
+import com.space.remote.paging.MoviesPagingSource
+import com.space.remote.paging.PAGE_SIZE
 import com.space.repository.DiscoverMovieRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class DiscoverMovieRepositoryImpl(
-    private val api: DiscoverMovieApi,
+    private val dataSource: DiscoverMovieDataSource,
     private val mapper: PopularMovieMapper
 ) : DiscoverMovieRepository {
 
     override fun discoverMovies(genreId: Int): Flow<PagingData<MovieResponse>> =
         Pager(
             config = PagingConfig(pageSize = PAGE_SIZE),
-            pagingSourceFactory = { DiscoverMoviesPagingSource(api, genreId) }
+            pagingSourceFactory = {
+                MoviesPagingSource { page ->
+                    dataSource.discoverMovies(genreId, page)
+                }
+            }
         ).flow.map { pagingData -> pagingData.map(mapper::map) }
-
-    companion object {
-        private const val PAGE_SIZE = 20
-    }
 }
