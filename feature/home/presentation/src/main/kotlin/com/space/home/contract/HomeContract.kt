@@ -15,15 +15,14 @@ data class HomeState(
     val selectedCategory: String = "",
     val isLoading: Boolean = false,
     @param:StringRes val error: Int? = null,
-    val movies: Flow<PagingData<Movie>> = emptyFlow(),
-    val favouriteIds: Set<Int> = emptySet()
+    val movies: Flow<PagingData<Movie>> = emptyFlow()
 )
 
 sealed interface HomeEvent : UIEvent {
     data class QueryChanged(val query: String) : HomeEvent
     data class FilterToggled(val isSelected: Boolean) : HomeEvent
     data class CategorySelected(val category: String) : HomeEvent
-    data class FavouriteToggled(val movieId: Int) : HomeEvent
+    data class FavouriteToggled(val movie: Movie) : HomeEvent
     data object Refresh : HomeEvent
     data object FavouritesClicked : HomeEvent
 }
