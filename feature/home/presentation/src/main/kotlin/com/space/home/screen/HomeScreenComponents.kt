@@ -35,7 +35,7 @@ fun MoviesGrid(
             movies[index]?.let { movie ->
                 MovieCard(
                     movie = movie,
-                    onFavoriteToggle = { id -> onEvent(HomeEvent.FavouriteToggled(id)) },
+                    onFavoriteToggle = { _ -> onEvent(HomeEvent.FavouriteToggled(movie)) },
                     placeholder = painterResource(R.drawable.placeholder),
                     onClick = { onEvent(HomeEvent.MovieClicked(it)) }
                 )

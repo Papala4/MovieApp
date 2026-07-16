@@ -4,6 +4,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
+import com.space.domain.usecase.AddFavouriteMovieUseCase
+import com.space.domain.usecase.GetFavouriteMoviesUseCase
+import com.space.domain.usecase.RemoveFavouriteMovieUseCase
 import com.space.home.contract.HomeEffect
 import com.space.home.contract.HomeEvent
 import com.space.home.contract.HomeState
@@ -27,6 +30,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 @OptIn(FlowPreview::class)
 class HomeViewModel(
@@ -34,10 +38,17 @@ class HomeViewModel(
     private val discoverMoviesUseCase: DiscoverMoviesUseCase,
     private val searchMoviesUseCase: SearchMoviesUseCase,
     private val getGenresUseCase: GetGenresUseCase,
+    getFavouriteMoviesUseCase: GetFavouriteMoviesUseCase,
+    private val addFavouriteMovieUseCase: AddFavouriteMovieUseCase,
+    private val removeFavouriteMovieUseCase: RemoveFavouriteMovieUseCase,
     private val mapper: MovieUiMapper
 ) : BaseViewModel<HomeState, HomeEvent, HomeEffect>(HomeState()) {
 
     private val refreshTrigger = MutableStateFlow(0)
+
+    private val favouriteIds: Flow<Set<Int>> = getFavouriteMoviesUseCase()
+        .map { favourites -> favourites.map { it.id }.toSet() }
+        .distinctUntilChanged()
 
     init {
         setState { copy(movies = createMoviesFlow()) }
@@ -80,8 +91,7 @@ class HomeViewModel(
                 }
             }
             .cachedIn(viewModelScope)
-            .combine(state.map { it.favouriteIds }
-                .distinctUntilChanged()) { pagingData, favourites ->
+            .combine(favouriteIds) { pagingData, favourites ->
                 pagingData.map { it.copy(isFavorite = it.id in favourites) }
             }
     }
@@ -93,12 +103,21 @@ class HomeViewModel(
             is HomeEvent.CategorySelected -> setState {
                 copy(selectedCategory = if (selectedCategory == event.category) "" else event.category)
             }
+
+            is HomeEvent.FavouriteToggled -> toggleFavourite(event.movie)
             is HomeEvent.MovieClicked -> sendEffect(HomeEffect.NavigateToDetails(event.movie.id))
-            is HomeEvent.FavouriteToggled -> setState {
-                copy(favouriteIds = if (event.movieId in favouriteIds) favouriteIds - event.movieId else favouriteIds + event.movieId)
-            }
             HomeEvent.Refresh -> refreshTrigger.update { it + 1 }
             HomeEvent.FavouritesClicked -> sendEffect(HomeEffect.NavigateToFavourites)
+        }
+    }
+
+    private fun toggleFavourite(movie: Movie) {
+        viewModelScope.launch {
+            if (movie.isFavorite) {
+                removeFavouriteMovieUseCase(movie.id)
+            } else {
+                addFavouriteMovieUseCase(mapper.mapToFavourite(movie))
+            }
         }
     }
 
