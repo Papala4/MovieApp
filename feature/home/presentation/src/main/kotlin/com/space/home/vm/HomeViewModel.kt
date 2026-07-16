@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
+import com.space.domain.model.Movie
 import com.space.domain.usecase.AddFavouriteMovieUseCase
 import com.space.domain.usecase.GetFavouriteMoviesUseCase
 import com.space.domain.usecase.RemoveFavouriteMovieUseCase
@@ -14,7 +15,6 @@ import com.space.home.mapper.MovieUiMapper
 import com.space.model.GenreResponse
 import com.space.network.api_result.ApiResult
 import com.space.presentation.base.BaseViewModel
-import com.space.ui.component.cards.Movie
 import com.space.usecase.DiscoverMoviesUseCase
 import com.space.usecase.GetGenresUseCase
 import com.space.usecase.GetPopularMoviesUseCase
@@ -115,7 +115,7 @@ class HomeViewModel(
             if (movie.isFavorite) {
                 removeFavouriteMovieUseCase(movie.id)
             } else {
-                addFavouriteMovieUseCase(mapper.mapToFavourite(movie))
+                addFavouriteMovieUseCase(movie)
             }
         }
     }

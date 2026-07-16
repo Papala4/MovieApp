@@ -69,7 +69,7 @@ class MovieDetailsVm(
             if (movie.isFavourite) {
                 removeFavouriteMovieUseCase(movie.id)
             } else {
-                addFavouriteMovieUseCase(mapper.mapToFavourite(movie))
+                addFavouriteMovieUseCase(mapper.mapToMovie(movie))
             }
         }
     }

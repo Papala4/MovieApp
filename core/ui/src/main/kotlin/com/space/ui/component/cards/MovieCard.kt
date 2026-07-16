@@ -31,6 +31,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.space.domain.model.Movie
 import com.space.ui.component.common.shimmerEffect
 import com.space.ui.component.icons_labels.FavouriteButton
 import com.space.ui.theme.Dimensions
@@ -40,15 +41,6 @@ import com.space.ui.theme.MovieTheme.colors
 import com.space.ui.theme.Radius
 import com.space.ui.theme.Size
 import com.space.ui.theme.Spacing
-
-data class Movie(
-    val id: Int,
-    val title: String,
-    val year: String,
-    val genre: String,
-    val posterUrl: String,
-    val isFavorite: Boolean = false
-)
 
 /**
  * [MovieCard] – a self-contained, reusable card component.
