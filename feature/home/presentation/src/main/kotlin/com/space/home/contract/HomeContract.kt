@@ -1,8 +1,12 @@
 package com.space.home.contract
 
 import androidx.annotation.StringRes
+import androidx.paging.PagingData
 import com.space.presentation.base.UIEffect
 import com.space.presentation.base.UIEvent
+import com.space.ui.component.cards.Movie
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 
 data class HomeState(
     val query: String = "",
@@ -10,7 +14,9 @@ data class HomeState(
     val categories: List<String> = emptyList(),
     val selectedCategory: String = "",
     val isLoading: Boolean = false,
-    @param:StringRes val error: Int? = null
+    @param:StringRes val error: Int? = null,
+    val movies: Flow<PagingData<Movie>> = emptyFlow(),
+    val favouriteIds: Set<Int> = emptySet()
 )
 
 sealed interface HomeEvent : UIEvent {
