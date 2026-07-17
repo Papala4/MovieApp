@@ -34,9 +34,9 @@ val homeDataModule = module {
     single<PopularMovieDataSource> { PopularMovieDataSourceImpl(get()) }
     single<SearchMovieDataSource> { SearchMovieDataSourceImpl(get()) }
     single<DiscoverMovieDataSource> { DiscoverMovieDataSourceImpl(get()) }
-    single<PopularMovieRepository> { PopularMovieRepositoryImpl(get(), get()) }
-    single<DiscoverMovieRepository> { DiscoverMovieRepositoryImpl(get(), get()) }
-    single<SearchMovieRepository> { SearchMovieRepositoryImpl(get(), get()) }
+    single<PopularMovieRepository> { PopularMovieRepositoryImpl(get(), get(), get()) }
+    single<DiscoverMovieRepository> { DiscoverMovieRepositoryImpl(get(), get(), get()) }
+    single<SearchMovieRepository> { SearchMovieRepositoryImpl(get(), get(), get()) }
     single<GenreRepository> { GenreRepositoryImpl(get(), get()) }
     single { PopularMovieMapper() }
     single { GenreMapper() }

@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.space.model.MovieResponse
+import com.space.network.exception.ExceptionHandler
 import com.space.remote.datasource.popular.PopularMovieDataSource
 import com.space.remote.mapper.PopularMovieMapper
 import com.space.remote.paging.MoviesPagingSource
@@ -15,12 +16,18 @@ import kotlinx.coroutines.flow.map
 
 class PopularMovieRepositoryImpl(
     private val dataSource: PopularMovieDataSource,
-    private val mapper: PopularMovieMapper
+    private val mapper: PopularMovieMapper,
+    private val exceptionHandler: ExceptionHandler
 ) : PopularMovieRepository {
 
     override fun getPopularMovies(): Flow<PagingData<MovieResponse>> =
         Pager(
             config = PagingConfig(pageSize = PAGE_SIZE),
-            pagingSourceFactory = { MoviesPagingSource(dataSource::getPopularMovies) }
+            pagingSourceFactory = {
+                MoviesPagingSource(
+                    exceptionHandler,
+                    dataSource::getPopularMovies
+                )
+            }
         ).flow.map { pagingData -> pagingData.map(mapper::map) }
 }

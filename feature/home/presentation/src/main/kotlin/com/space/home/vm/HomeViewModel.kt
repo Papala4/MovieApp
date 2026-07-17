@@ -10,6 +10,7 @@ import com.space.home.contract.HomeState
 import com.space.home.mapper.MovieUiMapper
 import com.space.model.GenreResponse
 import com.space.network.api_result.ApiResult
+import com.space.network.network_observer.NetworkObserver
 import com.space.presentation.base.BaseViewModel
 import com.space.ui.component.cards.Movie
 import com.space.usecase.DiscoverMoviesUseCase
@@ -19,6 +20,8 @@ import com.space.usecase.SearchMoviesUseCase
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -26,6 +29,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 
 @OptIn(FlowPreview::class)
@@ -34,8 +38,16 @@ class HomeViewModel(
     private val discoverMoviesUseCase: DiscoverMoviesUseCase,
     private val searchMoviesUseCase: SearchMoviesUseCase,
     private val getGenresUseCase: GetGenresUseCase,
-    private val mapper: MovieUiMapper
+    private val mapper: MovieUiMapper,
+    networkObserver: NetworkObserver
 ) : BaseViewModel<HomeState, HomeEvent, HomeEffect>(HomeState()) {
+
+    val isOnline: StateFlow<Boolean> = networkObserver.isOnline
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = true
+        )
 
     private val refreshTrigger = MutableStateFlow(0)
 

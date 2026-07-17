@@ -41,7 +41,14 @@ fun HomeScreen(
 ) {
     val vm: HomeViewModel = koinViewModel()
     val state by vm.state.collectAsState()
+    val isOnline by vm.isOnline.collectAsState()
     val movies = state.movies.collectAsLazyPagingItems()
+
+    LaunchedEffect(isOnline) {
+        if (isOnline && movies.loadState.append is LoadState.Error) {
+            movies.retry()
+        }
+    }
 
     LaunchedEffect(Unit) {
         vm.effect.collect { effect ->
