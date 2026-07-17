@@ -11,10 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import com.space.domain.model.Movie
 import com.space.home.contract.HomeEvent
 import com.space.home.presentation.R
 import com.space.ui.component.banners.NoInternetBanner
-import com.space.ui.component.cards.Movie
 import com.space.ui.component.cards.MovieCard
 import com.space.ui.component.cards.MovieCardShimmer
 import com.space.ui.theme.Spacing
