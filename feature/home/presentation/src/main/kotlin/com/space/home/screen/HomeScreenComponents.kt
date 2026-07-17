@@ -90,7 +90,7 @@ fun AppendErrorItem(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(com.space.ui.R.string.error_loading_more),
+            text = stringResource(R.string.error_loading_more),
             style = MovieTheme.typography.bodyMedium,
             color = MovieTheme.colors.textSecondary
         )
@@ -104,7 +104,7 @@ fun AppendErrorItem(
             )
         ) {
             Text(
-                text = stringResource(com.space.ui.R.string.retry),
+                text = stringResource(R.string.retry),
                 style = MovieTheme.typography.bodyMedium
             )
         }
