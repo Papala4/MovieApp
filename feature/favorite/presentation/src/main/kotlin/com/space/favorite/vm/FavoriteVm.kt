@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-class FavoriteViewModel(
+class FavoriteVm(
     getFavouriteMoviesUseCase: GetFavouriteMoviesUseCase,
     private val addFavouriteMovieUseCase: AddFavouriteMovieUseCase,
     private val removeFavouriteMovieUseCase: RemoveFavouriteMovieUseCase

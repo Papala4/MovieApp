@@ -24,7 +24,7 @@ import com.space.favorite.contract.FavoriteEffect
 import com.space.favorite.contract.FavoriteEvent
 import com.space.favorite.contract.FavoriteState
 import com.space.favorite.presentation.R
-import com.space.favorite.vm.FavoriteViewModel
+import com.space.favorite.vm.FavoriteVm
 import com.space.ui.component.cards.MovieCard
 import com.space.ui.component.navigation_buttons.Header
 import com.space.ui.theme.MovieTheme
@@ -38,7 +38,7 @@ fun FavoriteScreen(
     onNavigateToHome: () -> Unit = {},
     onNavigateToDetails: (Int) -> Unit = {}
 ) {
-    val vm: FavoriteViewModel = koinViewModel()
+    val vm: FavoriteVm = koinViewModel()
     val state by vm.state.collectAsState()
 
     LaunchedEffect(Unit) {

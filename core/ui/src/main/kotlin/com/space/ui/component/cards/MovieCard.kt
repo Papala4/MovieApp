@@ -77,7 +77,7 @@ fun MovieCard(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(163f / 226f)
+                    .aspectRatio(POSTER_ASPECT_RATIO)
             ) {
                 var isPosterLoading by remember { mutableStateOf(false) }
 
@@ -185,6 +185,8 @@ fun MovieRow(
         }
     }
 }
+
+private const val POSTER_ASPECT_RATIO = 163f / 226f
 
 @Preview
 @Composable
