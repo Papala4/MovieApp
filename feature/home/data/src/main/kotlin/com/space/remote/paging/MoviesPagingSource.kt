@@ -2,12 +2,13 @@ package com.space.remote.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.space.network.exception.ExceptionHandler
 import com.space.remote.dto.MovieDto
 import com.space.remote.dto.PopularMovieDto
-import retrofit2.HttpException
 import retrofit2.Response
 
 class MoviesPagingSource(
+    private val exceptionHandler: ExceptionHandler,
     private val loadPage: suspend (page: Int) -> Response<PopularMovieDto>
 ) : PagingSource<Int, MovieDto>() {
 
@@ -23,10 +24,16 @@ class MoviesPagingSource(
                     nextKey = if (page < body.totalPages) page + 1 else null
                 )
             } else {
-                LoadResult.Error(HttpException(response))
+                LoadResult.Error(
+                    exceptionHandler.getExceptionByThrowable(
+                        retrofit2.HttpException(
+                            response
+                        )
+                    )
+                )
             }
         } catch (e: Exception) {
-            LoadResult.Error(e)
+            LoadResult.Error(exceptionHandler.getExceptionByThrowable(e))
         }
     }
 

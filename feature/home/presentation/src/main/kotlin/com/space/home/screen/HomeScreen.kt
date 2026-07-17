@@ -26,7 +26,7 @@ import com.space.home.contract.HomeEffect
 import com.space.home.contract.HomeEvent
 import com.space.home.contract.HomeState
 import com.space.home.presentation.R
-import com.space.home.vm.HomeViewModel
+import com.space.home.vm.HomeVm
 import com.space.ui.component.search_filter.SearchBar
 import com.space.ui.component.state.EmptyState
 import com.space.ui.component.state.ErrorState
@@ -39,9 +39,16 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     onNavigateToFavourites: () -> Unit = {}
 ) {
-    val vm: HomeViewModel = koinViewModel()
+    val vm: HomeVm = koinViewModel()
     val state by vm.state.collectAsState()
+    val isOnline by vm.isOnline.collectAsState()
     val movies = state.movies.collectAsLazyPagingItems()
+
+    LaunchedEffect(isOnline) {
+        if (isOnline && movies.loadState.append is LoadState.Error) {
+            movies.retry()
+        }
+    }
 
     LaunchedEffect(Unit) {
         vm.effect.collect { effect ->

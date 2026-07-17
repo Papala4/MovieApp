@@ -25,10 +25,12 @@ fun FavouriteButton(
     ) {
         BaseIcon(
             icon = if (isFavourite) R.drawable.checked_favourite_btn else R.drawable.favourite_btn,
-            modifier = Modifier.size(size * 0.65f)
+            modifier = Modifier.size(size * ICON_SIZE_RATIO)
         )
     }
 }
+
+private const val ICON_SIZE_RATIO = 0.80f
 
 @Preview
 @Composable
