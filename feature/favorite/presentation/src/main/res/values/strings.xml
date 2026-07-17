@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="favorite_movies_title">Favorite movies</string>
+    <string name="favorite_empty_message">No movies added yet</string>
+    <string name="favorite_nav_home">Home</string>
+    <string name="favorite_nav_favorites">Favorites</string>
+</resources>

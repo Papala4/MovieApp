@@ -21,12 +21,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.space.domain.model.Movie
 import com.space.home.contract.HomeEffect
 import com.space.home.contract.HomeEvent
 import com.space.home.contract.HomeState
 import com.space.home.presentation.R
 import com.space.home.vm.HomeVm
-import com.space.ui.component.cards.Movie
 import com.space.ui.component.search_filter.SearchBar
 import com.space.ui.component.state.EmptyState
 import com.space.ui.component.state.ErrorState

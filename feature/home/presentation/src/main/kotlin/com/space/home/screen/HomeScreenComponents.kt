@@ -21,12 +21,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import com.space.domain.model.Movie
 import com.space.home.contract.HomeEvent
 import com.space.home.presentation.R
 import com.space.network.exception.BaseException
 import com.space.network.exception.ErrorCode
 import com.space.ui.component.banners.NoInternetBanner
-import com.space.ui.component.cards.Movie
 import com.space.ui.component.cards.MovieCard
 import com.space.ui.component.cards.MovieCardShimmer
 import com.space.ui.theme.MovieTheme
@@ -90,7 +90,7 @@ fun AppendErrorItem(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(com.space.ui.R.string.error_loading_more),
+            text = stringResource(R.string.error_loading_more),
             style = MovieTheme.typography.bodyMedium,
             color = MovieTheme.colors.textSecondary
         )
@@ -104,7 +104,7 @@ fun AppendErrorItem(
             )
         ) {
             Text(
-                text = stringResource(com.space.ui.R.string.retry),
+                text = stringResource(R.string.retry),
                 style = MovieTheme.typography.bodyMedium
             )
         }

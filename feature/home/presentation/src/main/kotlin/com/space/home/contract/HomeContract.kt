@@ -2,9 +2,9 @@ package com.space.home.contract
 
 import androidx.annotation.StringRes
 import androidx.paging.PagingData
+import com.space.domain.model.Movie
 import com.space.presentation.base.UIEffect
 import com.space.presentation.base.UIEvent
-import com.space.ui.component.cards.Movie
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 

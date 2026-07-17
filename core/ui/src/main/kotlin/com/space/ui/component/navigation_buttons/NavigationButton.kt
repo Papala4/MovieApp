@@ -15,6 +15,7 @@ import com.space.ui.R
 import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.Radius
 import com.space.ui.theme.Spacing
+import com.space.ui.util.onSingleClick
 
 @Composable
 fun NavigationButton(
@@ -30,7 +31,7 @@ fun NavigationButton(
     val contentColor = if(active) colors.onPrimary else colors.textPrimary
 
     Button(
-        onClick = onClick,
+        onClick = onSingleClick(onClick = onClick),
         shape = Radius.radius8,
         colors = ButtonDefaults.buttonColors(
             containerColor = backgroundColor,
