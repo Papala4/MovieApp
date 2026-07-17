@@ -27,16 +27,16 @@ import retrofit2.Retrofit
 
 val homeDataModule = module {
     single<PopularMovieApi> { get<Retrofit>().create(PopularMovieApi::class.java) }
-    single<SearchMovieApi> { get<Retrofit>().create(SearchMovieApi::class.java) }
     single<DiscoverMovieApi> { get<Retrofit>().create(DiscoverMovieApi::class.java) }
+    single<SearchMovieApi> { get<Retrofit>().create(SearchMovieApi::class.java) }
     single<GenreApi> { get<Retrofit>().create(GenreApi::class.java) }
     single<GenreDataSource> { GenreDataSourceImpl(get(), get()) }
     single<PopularMovieDataSource> { PopularMovieDataSourceImpl(get()) }
     single<SearchMovieDataSource> { SearchMovieDataSourceImpl(get()) }
     single<DiscoverMovieDataSource> { DiscoverMovieDataSourceImpl(get()) }
-    single<PopularMovieRepository> { PopularMovieRepositoryImpl(get(), get()) }
-    single<SearchMovieRepository> { SearchMovieRepositoryImpl(get(), get()) }
-    single<DiscoverMovieRepository> { DiscoverMovieRepositoryImpl(get(), get()) }
+    single<PopularMovieRepository> { PopularMovieRepositoryImpl(get(), get(), get()) }
+    single<DiscoverMovieRepository> { DiscoverMovieRepositoryImpl(get(), get(), get()) }
+    single<SearchMovieRepository> { SearchMovieRepositoryImpl(get(), get(), get()) }
     single<GenreRepository> { GenreRepositoryImpl(get(), get()) }
     single { PopularMovieMapper() }
     single { GenreMapper() }

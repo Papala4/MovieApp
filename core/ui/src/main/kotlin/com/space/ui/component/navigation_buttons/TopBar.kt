@@ -1,6 +1,5 @@
 package com.space.ui.component.navigation_buttons
 
-import com.space.ui.R
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.space.ui.R
 import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.Spacing
 
@@ -35,7 +35,7 @@ fun Header(
 
         Text(
             text = title,
-            style = MovieTheme.typography.titleSmall,
+            style = MovieTheme.typography.titleMedium,
             color = colors.textPrimary,
             modifier = Modifier.align(Alignment.Center)
         )

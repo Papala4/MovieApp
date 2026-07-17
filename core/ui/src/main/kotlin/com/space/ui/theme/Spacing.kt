@@ -24,4 +24,6 @@ object Spacing {
     val spacing64 = Dim.dimension64
     val spacing124 = Dim.dimension124
     val spacing220 = Dim.dimension220
+    val spacing250 = Dim.dimension250
+
 }

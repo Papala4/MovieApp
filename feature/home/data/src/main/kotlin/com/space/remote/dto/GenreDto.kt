@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 data class GenresDto(
     val genres: List<GenreDto>
 )
+
 @Serializable
 data class GenreDto(
     val id: Int,

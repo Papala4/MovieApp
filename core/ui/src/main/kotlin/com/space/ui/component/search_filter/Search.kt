@@ -46,13 +46,14 @@ import com.space.ui.theme.TextSizing
  * Features a search icon on the left and a text input on the right.
  * - Tapping the icon toggles focus and keyboard visibility.
  * - Clearing all text automatically releases focus and hides the keyboard.
- * - Placeholder is hidden when the field is focused.
+ * - Placeholder stays visible until the user types something.
  *
  * @param query The current search text (controlled from outside).
  * @param onQueryChange Called on every keystroke with the updated text.
  * @param modifier Optional external modifier for positioning or sizing.
- * @param placeholder Hint text shown when query is empty and field is unfocused. Defaults to "Search".
+ * @param placeholder Hint text shown while the query is empty. Defaults to "Search".
  * @param enabled Whether the field accepts input. Defaults to true.
+ * @param onFocusChanged Called when the input's focus state changes.
 */
 
 @Composable
@@ -61,6 +62,7 @@ fun Search(
     modifier: Modifier = Modifier,
     placeholder: String = stringResource(R.string.search_placeholder),
     enabled: Boolean = true,
+    onFocusChanged: (Boolean) -> Unit = {},
     onQueryChange: (String) -> Unit
 ) {
     val focusRequester = remember { FocusRequester() }
@@ -118,17 +120,31 @@ fun Search(
                         .focusRequester(focusRequester)
                         .onFocusChanged { state ->
                             isFocused = state.isFocused
+                            onFocusChanged(state.isFocused)
                         }
                 )
 
-                if (query.isEmpty() && !isFocused) {
+                if (query.isEmpty()) {
                     Text(
                         text = placeholder,
-                        color = colors.textSecondary,
+                        color = colors.border,
                         fontSize = TextSizing.size14,
                         style = MovieTheme.typography.bodyMedium
                     )
                 }
+            }
+
+            if (query.isNotEmpty()) {
+                Spacer(modifier = Modifier.width(Spacing.spacing6))
+
+                Icon(
+                    painter = painterResource(R.drawable.clear_button),
+                    contentDescription = null,
+                    tint = Color.Unspecified,
+                    modifier = Modifier
+                        .size(Dimensions.dimension14)
+                        .clickable { onQueryChange(query.dropLast(1)) }
+                )
             }
         }
     }

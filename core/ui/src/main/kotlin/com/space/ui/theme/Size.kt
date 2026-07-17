@@ -12,8 +12,10 @@ object Size {
     val size14 = Dim.dimension14
     val size16 = Dim.dimension16
     val size20 = Dim.dimension20
+    val size26 = Dim.dimension26
     val size36 = Dim.dimension36
     val size42 = Dim.dimension42
+    val size96 = Dim.dimension96
     val size164 = Dim.dimension164
     val size226 = Dim.dimension226
 }

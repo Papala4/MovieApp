@@ -6,9 +6,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
@@ -25,24 +25,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.space.ui.component.common.shimmerEffect
 import com.space.ui.component.icons_labels.FavouriteButton
 import com.space.ui.theme.Dimensions
 import com.space.ui.theme.MovieAppTheme
+import com.space.ui.theme.MovieTheme
 import com.space.ui.theme.MovieTheme.colors
 import com.space.ui.theme.Radius
+import com.space.ui.theme.Size
 import com.space.ui.theme.Spacing
-import com.space.ui.theme.TextSizing
 
 data class Movie(
     val id: Int,
     val title: String,
-    val year: Int,
+    val year: String,
     val genre: String,
     val posterUrl: String,
     val isFavorite: Boolean = false
@@ -54,14 +56,19 @@ data class Movie(
  * @param movie The movie data to display.
  * @param onFavoriteToggle Called when the user taps the heart icon.
  * @param modifier Optional external modifier for sizing / spacing.
+ * @param placeholder Painter shown when the poster is missing or fails to load;
+ * while the poster is loading a shimmer is drawn instead.
  */
 
 @Composable
-private fun MovieCard(
+fun MovieCard(
     movie: Movie,
-    onFavoriteToggle: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    placeholder: Painter? = null,
+    onFavoriteToggle: (Int) -> Unit
 ) {
+
+    val typography = MovieTheme.typography
 
     Card(
         modifier = modifier
@@ -74,17 +81,32 @@ private fun MovieCard(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(Spacing.spacing220)
+                    .aspectRatio(POSTER_ASPECT_RATIO)
             ) {
+                var isPosterLoading by remember { mutableStateOf(false) }
+
                 AsyncImage(
-                    model = movie.posterUrl,
+                    model = movie.posterUrl.takeIf { it.isNotBlank() },
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
+                    error = placeholder,
+                    fallback = placeholder,
+                    onLoading = { isPosterLoading = true },
+                    onSuccess = { isPosterLoading = false },
+                    onError = { isPosterLoading = false },
                     modifier = Modifier
                         .fillMaxSize()
-                        .clip(Radius.radius16),
-
+                        .clip(Radius.radius16)
                 )
+
+                if (isPosterLoading) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(Radius.radius16)
+                            .shimmerEffect()
+                    )
+                }
 
                 GenreBadge(
                     genre = movie.genre,
@@ -98,28 +120,27 @@ private fun MovieCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = Spacing.spacing8),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.Top
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = movie.title,
+                        style = typography.bodyMedium,
                         color = colors.textPrimary,
-                        fontSize = TextSizing.size14,
-                        fontWeight = FontWeight.SemiBold,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
-                        text = movie.year.toString(),
-                        color = colors.textSecondary,
-                        fontSize = TextSizing.size12
+                        text = movie.year,
+                        style = typography.labelMedium,
+                        color = colors.surfaceVariant
                     )
                 }
 
                 FavouriteButton(
                     isFavourite = movie.isFavorite,
-                    enabled = false,
-                    onToggleChange = { onFavoriteToggle() }
+                    size = Size.size26,
+                    onToggleChange = { onFavoriteToggle(movie.id) }
                 )
             }
         }
@@ -128,6 +149,8 @@ private fun MovieCard(
 
 @Composable
 private fun GenreBadge(genre: String, modifier: Modifier = Modifier) {
+    val typography = MovieTheme.typography
+
     Box(
         modifier = modifier
             .background(color = colors.primary, shape = Radius.radius24)
@@ -136,8 +159,7 @@ private fun GenreBadge(genre: String, modifier: Modifier = Modifier) {
         Text(
             text = genre,
             color = colors.surface,
-            fontSize = TextSizing.size10,
-            fontWeight = FontWeight.Bold
+            style = typography.labelSmall
         )
     }
 }
@@ -158,15 +180,17 @@ fun MovieRow(
         items(movieList, key = { it.id }) { movie ->
             MovieCard(
                 movie = movie,
-                onFavoriteToggle = {
+                onFavoriteToggle = { movieId ->
                     movieList = movieList.map {
-                        if (it.id == movie.id) it.copy(isFavorite = !it.isFavorite) else it
+                        if (it.id == movieId) it.copy(isFavorite = !it.isFavorite) else it
                     }
                 }
             )
         }
     }
 }
+
+private const val POSTER_ASPECT_RATIO = 163f / 226f
 
 @Preview
 @Composable
@@ -178,7 +202,7 @@ private fun PreviewMovieCard() {
             MovieCard(
                 movie = Movie(
                     id = 1,
-                    year = 2019,
+                    year = "2019",
                     title = "Test1",
                     genre = "Adventure",
                     posterUrl = ""
