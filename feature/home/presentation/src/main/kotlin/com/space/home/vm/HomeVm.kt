@@ -42,8 +42,7 @@ class HomeVm(
     private val discoverMoviesUseCase: DiscoverMoviesUseCase,
     private val searchMoviesUseCase: SearchMoviesUseCase,
     private val getGenresUseCase: GetGenresUseCase,
-    private val mapper: MovieUiMapper,
-    networkObserver: NetworkObserver
+    networkObserver: NetworkObserver,
     getFavouriteMoviesUseCase: GetFavouriteMoviesUseCase,
     private val addFavouriteMovieUseCase: AddFavouriteMovieUseCase,
     private val removeFavouriteMovieUseCase: RemoveFavouriteMovieUseCase,
