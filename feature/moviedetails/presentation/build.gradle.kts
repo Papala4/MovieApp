@@ -12,5 +12,6 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(project(":core:network"))
     implementation(project(":core:presentation"))
+    implementation(project(":core:domain"))
     implementation(project(":feature:moviedetails:domain"))
 }

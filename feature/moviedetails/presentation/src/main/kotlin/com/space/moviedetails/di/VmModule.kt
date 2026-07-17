@@ -7,5 +7,5 @@ import org.koin.dsl.module
 
 val vmModule = module {
     single { MovieDetailsUiMapper() }
-    viewModel { MovieDetailsVm(get(), get()) }
+    viewModel { MovieDetailsVm(get(), get(), get(), get(), get()) }
 }
