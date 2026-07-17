@@ -45,7 +45,7 @@ class HomeViewModel(
     val isOnline: StateFlow<Boolean> = networkObserver.isOnline
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5_000),
+            started = SharingStarted.WhileSubscribed(ONLINE_SUBSCRIBE_TIMEOUT),
             initialValue = true
         )
 
@@ -71,7 +71,7 @@ class HomeViewModel(
 
         val filters = combine(
             state.map { it.query }.distinctUntilChanged()
-                .debounce { if (it.isEmpty()) 0L else 300L },
+                .debounce { if (it.isEmpty()) DEBOUNCE_EMPTY else DEBOUNCE_SEARCH },
             state.map { it.selectedCategory }.distinctUntilChanged()
         ) { query, category -> MovieFilters(query, category) }
 
@@ -127,4 +127,10 @@ class HomeViewModel(
     }
 
     private data class MovieFilters(val query: String, val category: String)
+
+    companion object {
+        private const val DEBOUNCE_SEARCH = 300L
+        private const val DEBOUNCE_EMPTY = 0L
+        private const val ONLINE_SUBSCRIBE_TIMEOUT = 5_000L
+    }
 }
