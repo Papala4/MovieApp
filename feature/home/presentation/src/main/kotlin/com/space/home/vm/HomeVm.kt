@@ -33,7 +33,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 
 @OptIn(FlowPreview::class)
-class HomeViewModel(
+class HomeVm(
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
     private val discoverMoviesUseCase: DiscoverMoviesUseCase,
     private val searchMoviesUseCase: SearchMoviesUseCase,
