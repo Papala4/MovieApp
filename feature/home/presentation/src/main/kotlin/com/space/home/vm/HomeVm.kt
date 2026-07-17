@@ -13,6 +13,7 @@ import com.space.home.contract.HomeState
 import com.space.home.mapper.MovieUiMapper
 import com.space.model.GenreResponse
 import com.space.network.api_result.ApiResult
+import com.space.network.network_observer.NetworkObserver
 import com.space.presentation.base.BaseViewModel
 import com.space.ui.component.cards.Movie
 import com.space.usecase.DiscoverMoviesUseCase
@@ -22,6 +23,8 @@ import com.space.usecase.SearchMoviesUseCase
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -29,20 +32,30 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @OptIn(FlowPreview::class)
-class HomeViewModel(
+class HomeVm(
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
     private val discoverMoviesUseCase: DiscoverMoviesUseCase,
     private val searchMoviesUseCase: SearchMoviesUseCase,
     private val getGenresUseCase: GetGenresUseCase,
+    private val mapper: MovieUiMapper,
+    networkObserver: NetworkObserver
     getFavouriteMoviesUseCase: GetFavouriteMoviesUseCase,
     private val addFavouriteMovieUseCase: AddFavouriteMovieUseCase,
     private val removeFavouriteMovieUseCase: RemoveFavouriteMovieUseCase,
     private val mapper: MovieUiMapper
 ) : BaseViewModel<HomeState, HomeEvent, HomeEffect>(HomeState()) {
+
+    val isOnline: StateFlow<Boolean> = networkObserver.isOnline
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(ONLINE_SUBSCRIBE_TIMEOUT),
+            initialValue = true
+        )
 
     private val refreshTrigger = MutableStateFlow(0)
 
@@ -70,7 +83,7 @@ class HomeViewModel(
 
         val filters = combine(
             state.map { it.query }.distinctUntilChanged()
-                .debounce { if (it.isEmpty()) 0L else 300L },
+                .debounce { if (it.isEmpty()) DEBOUNCE_EMPTY else DEBOUNCE_SEARCH },
             state.map { it.selectedCategory }.distinctUntilChanged()
         ) { query, category -> MovieFilters(query, category) }
 
@@ -133,4 +146,10 @@ class HomeViewModel(
     }
 
     private data class MovieFilters(val query: String, val category: String)
+
+    companion object {
+        private const val DEBOUNCE_SEARCH = 300L
+        private const val DEBOUNCE_EMPTY = 0L
+        private const val ONLINE_SUBSCRIBE_TIMEOUT = 5_000L
+    }
 }
